@@ -2,11 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
 .App-header {
   min-height: 100vh;
   display: flex;
@@ -16,6 +11,17 @@
   font-size: calc(10px + 2vmin);
 }
 
-.App-link {
-  color: #61dafb;
+table {
+  width: 90%;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+th, td{
+  border: 1px solid #050303;
+}
+
+th {
+  background-color:aliceblue;
+  color: black;
 }
