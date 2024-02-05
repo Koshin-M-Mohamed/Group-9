@@ -1,6 +1,6 @@
 import React from "react";
 
-function Table({ data, cols }) {
+function Table({ data, cols, renderCell }) {
   return (
     <table>
       <thead>
@@ -12,12 +12,15 @@ function Table({ data, cols }) {
       </thead>
       {/* table main body */}
       <tbody>
-        {data.map((row, index) =>
+        {data.map((row, rowIndex) =>
           // create a row element for each row index in the data
-          (<tr key={index}>
+          (<tr key={rowIndex}>
             {cols.map(col =>
-              (<td key={`${index}-${col}`}>{row[col]}</td>)) // Corrected to use template literal syntax
-            }
+              // Conditional rendering if renderCell is provided
+              renderCell ? 
+              <td key={`${rowIndex}-${col}`}>{renderCell(col, row[col], row, rowIndex)}</td> :
+              <td key={`${rowIndex}-${col}`}>{row[col]}</td>
+            )}
           </tr>))
         }
       </tbody>
@@ -26,3 +29,4 @@ function Table({ data, cols }) {
 }
 
 export default Table;
+
