@@ -1,7 +1,7 @@
-function CategoryRow({category}) {
+function CategoryRow({cat, className}) {
     return (
-        <div className="CatRow">
-            <h4>{category}</h4>
+        <div className={className}>
+            <h3>{cat}</h3>
         </div>
     );
 }

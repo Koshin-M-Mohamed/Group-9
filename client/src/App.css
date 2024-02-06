@@ -19,3 +19,15 @@
 .App-link {
   color: #61dafb;
 }
+
+.App-exampane {
+  margin: 15px;
+}
+
+.App-categoryheader {
+  border-bottom: double;
+}
+
+.App-infodata {
+  background-color: gainsboro;
+}

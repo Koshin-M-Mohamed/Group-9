@@ -1,6 +1,6 @@
-function DataRow() {
+function DataRow({data, className}) {
     return (
-        <div className="DataRow">
+        <div className={className}>
             <h6>TESTTEXT</h6>
         </div>
     );
