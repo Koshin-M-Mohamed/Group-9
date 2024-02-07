@@ -1,7 +1,7 @@
 function DataRow({data, className}) {
     return (
-        <div className={className}>
-            <h6>TESTTEXT</h6>
+        <div>
+            <h6 className={className}>{data}</h6>
         </div>
     );
 }

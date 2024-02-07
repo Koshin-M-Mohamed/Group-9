@@ -1,10 +1,12 @@
 import ExamInfo from "../components/ExamInfo";
+import PatientInfo from "../components/Patientinfo";
 
 function ExamViewer() {
     return (
-    <div>
+    <div className="App-examwindow">
         <ExamInfo className="App-examwindow"/>
-    </div>);   
+        <PatientInfo className="App-patientwindow"/>
+    </div>);
 }
 
 export default ExamViewer;
