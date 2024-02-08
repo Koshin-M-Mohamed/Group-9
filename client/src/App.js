@@ -1,6 +1,6 @@
 import './App.css';
 import Table from './table';
-import fakeData from './mockData.js';
+import {fakeData} from './mockData.js';
 import { useApi } from './hooks/use-api';
 
 function App() {
