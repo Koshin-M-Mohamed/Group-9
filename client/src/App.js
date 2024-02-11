@@ -9,11 +9,6 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <header className="App-header">
-          <p>
-            {response}
-          </p>
-        </header>
         <Routes>
           <Route 
           path="/ExamView"
