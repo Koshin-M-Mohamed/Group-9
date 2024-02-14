@@ -1,4 +1,5 @@
 import Infobox from "./InfoBox";
+import ExamThumbnail from "./ExamThumbnail"
 import { fakeData } from "../mockData";
 
 let exam_cat = Object.fromEntries(Object.entries(fakeData[0]).slice(7,11));
@@ -14,7 +15,7 @@ function ExamBox() {
     return (
         <div className="App-exampane">
             {items}
-            <img className="exam-thumbnail" src={require("../components/test.jpg")} width="500px" height="500px" alt="" />
+            <ExamThumbnail />
         </div>
 
     );

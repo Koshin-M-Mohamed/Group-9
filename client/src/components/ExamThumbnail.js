@@ -3,7 +3,7 @@ import { fakeData } from "../mockData";
 function Exam_IMG() {
     return (
         <div>
-            <img src={require("./test.jpg")} width="300px" height="300px" alt="" />
+            <img className="exam-thumbnail" src={require("./test.jpg")} width="300px" height="300px" alt="" />
         </div>
 
     );
