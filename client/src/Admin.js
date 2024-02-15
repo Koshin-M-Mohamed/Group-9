@@ -1,6 +1,7 @@
 import React from "react";
 import Table from "./table";
-import {fakeData} from './mockData'
+import fakeData from './mockData.js';
+import { Link } from "react-router-dom";
 
 function Admin(){
     const adminPageColumns = ['Patient_ID', 'Exam_Id', 'Age', 'Sex', 'Zip',  'Image', 'Edit', 'Delete'];
