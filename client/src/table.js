@@ -40,16 +40,20 @@ function Table({ data, cols, renderCell }) {
       {/* table main body */}
       <tbody>
         {sortedData.map((row, rowIndex) =>
+          //check for empty rows
+          row ? 
           // create a row element for each row index in the data
           (<tr key={rowIndex}>
             {cols.map(col =>
               // Conditional rendering if renderCell is provided
               renderCell ? 
-              <td key={`${rowIndex}-${col}`}>{renderCell(col, row[col], row, rowIndex)}</td> :
-              <td key={`${rowIndex}-${col}`}>{row[col]}</td>
+              <td key={`${rowIndex}-${col}`}>{renderCell(col, row ? row[col] : null, row, rowIndex)}</td> :
+              <td key={`${rowIndex}-${col}`}>{row && row[col] != null ? row[col]: 'N/A'}</td> // if cell null, replace with N/A
             )}
-          </tr>))
-        }
+          </tr>) 
+          : null
+          
+        )}
       </tbody>
     </table>
   );
