@@ -11,8 +11,4 @@ return (  <>
 </>)
 }
 
-
-
-
-
 export default search;

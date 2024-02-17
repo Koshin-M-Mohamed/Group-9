@@ -4,17 +4,26 @@ import './index.css';
 import App from './App';
 import Search from './Search';
 import AddDelete from './button'; // Renamed addDelete to AddDelete
+import Admin from './Admin';
+import Search from './Search'
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
-    <Search />
-    <AddDelete /> 
+
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<App/>}/>
+      <Route path="/Admin" element ={<Admin/>}/>
+    </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
-
