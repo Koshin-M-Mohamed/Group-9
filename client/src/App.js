@@ -11,7 +11,7 @@ function App() {
   console.log("API response:", response);
   const exams = response ? JSON.parse(response).exams : [];
   console.log("Parsed exams:", exams);
-  const columns = ['patientId', 'age', 'sex', 'zipCode', 'bmi', 'examId', 'keyFindings', 'brixiaScores', 'imageURL'];
+  const columns = ['patientId', 'examId','imageURL', 'keyFindings', 'age', 'sex', 'zipCode', 'bmi', 'brixiaScores', ];
   
   const renderCell = (col, value, row, rowIndex) => {
     if (value == null) {
