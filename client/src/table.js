@@ -45,8 +45,8 @@ function Table({ data, cols, renderCell }) {
             {cols.map(col =>
               // Conditional rendering if renderCell is provided
               renderCell ? 
-              <td key={`${rowIndex}-${col}`}>{renderCell(col, row[col], row, rowIndex)}</td> :
-              <td key={`${rowIndex}-${col}`}>{row[col]}</td>
+              <td key={`${rowIndex}-${col}`}>{renderCell(col, row ? row[col] : null, row, rowIndex)}</td> :
+              <td key={`${rowIndex}-${col}`}>{row ? row[col] : 'N/A'}</td>
             )}
           </tr>))
         }
