@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 
 function Table({ data, cols, renderCell }) {
+  // UseState will return an array where first element is the default state and second element is the function used to configure the state
+  // Using array destructuring to set sortConfig to the default state, and setSortConfig to the function that will be used to configure
+  // Remember: the argument passed to useState is an object, will be first value in array returned by function, and it is the default or initial value of sortConfig
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
 
   const sortedData = [...data].sort((a, b) => {
