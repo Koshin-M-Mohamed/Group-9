@@ -52,19 +52,20 @@ router.put('/exam', function(req,res,next){
 
 
 // An endpoint to delete some exam
-router.delete('/exam', function(req,res,next){
+router.delete('/exam', (req,res,next) => {
   // The request object must contain two key value pairs: the patient ID and the exam ID
 
   // Parse the request for the patient ID/exam ID and pass these to the controller function associated with deleting from database
   PatientID = req.get('PatientID');
-  Exam_ID = req.get('exam_id');
+  Exam_ID = req.get('exam_Id');
   // Controller function can return some status code for successful deletion 
-  if (controller.DeleteExam(PatientID, Exam_ID) == 0) {
-    res.send(0);
-  } else {
-    res.status(500).send("There was an issue with deleting the exam, please try again later.")
-  }
-
+  controller.DeleteExam({PATIENT_ID: PatientID, exam_Id: Exam_ID});
+  //if (controller.DeleteExam(PatientID, Exam_ID) == 0) {
+  //  res.send(0);
+  //} else {
+  //  res.status(500).send("There was an issue with deleting the exam, please try again later.")
+  //}
+  res.send("Deleting Exam...")
   next();
 });
 
@@ -79,6 +80,8 @@ router.post('/exam', function(req,res,next){
   } else {
     res.status(500).send("There was an issue creating the exam, please try again later.");
   }
+
+  next();
   // Send a success status code to the client 
 });
 

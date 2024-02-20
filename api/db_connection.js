@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect("mongodb+srv://juniordiaz:lXiE5ZnhWA3jkfoA@techdive.kutpblg.mongodb.net").then(() => console.log("connected"));
+mongoose.connect("mongodb+srv://juniordiaz:lXiE5ZnhWA3jkfoA@techdive.kutpblg.mongodb.net").then(() => console.log("Initiating EVO Moment#37"));
 
 const examSchema = new mongoose.Schema({
     PATIENT_ID: String,
@@ -10,7 +10,7 @@ const examSchema = new mongoose.Schema({
     LATEST_BMI: mongoose.Schema.Types.Mixed,
     LATEST_WEIGHT: mongoose.Schema.Types.Mixed,
     png_filename: String,
-    exam_id: String,
+    exam_Id: String,
     'ICU Admit': String,
     '# ICU admits': Number,
     Mortatlity: String

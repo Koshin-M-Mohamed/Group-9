@@ -10,10 +10,12 @@ const Exam = require('../db_connection');
 
 // Produce a function that takes PatientID and examID as argument and delete the associated exam
 function DeleteExam(PatientID, EXAMID) {
-    Exam.findOneandDelete({'Patient_ID': PatientID, 'exam_id': EXAMID});
+    Exam.findOneandDelete({'PATIENT_ID': PatientID, 'exam_Id': EXAMID});
+    return 0;
 };
 // Produce a function that takes an exam object as argument and adds it to the database 
 function CreateExam(PatientID, EXAMID, ExamInfo){
     new_exam = new Exam(ExamInfo);
     new_exam.save();
-}
+    return 0;
+};
