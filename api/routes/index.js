@@ -1,5 +1,8 @@
 var express = require('express');
 var router = express.Router();
+const controller = require('../controllers/controller')
+
+router.use(express.json())
 
 /* GET home page. */
 
@@ -53,21 +56,30 @@ router.delete('/exam', function(req,res,next){
   // The request object must contain two key value pairs: the patient ID and the exam ID
 
   // Parse the request for the patient ID/exam ID and pass these to the controller function associated with deleting from database
-
+  PatientID = req.get('PatientID');
+  Exam_ID = req.get('exam_id');
   // Controller function can return some status code for successful deletion 
+  if (controller.DeleteExam(PatientID, Exam_ID) == 0) {
+    res.send(0);
+  } else {
+    res.status(500).send("There was an issue with deleting the exam, please try again later.")
+  }
 
+  next();
 });
 
 
 // An endpoint to add a new exam to the database
 router.post('/exam', function(req,res,next){
   // The request object must contain an exam object
-  
+  Exam = req.body;
   // Call a controller function which takes the exam object as an argument and adds the exam object to our database
-
+  if (controller.CreateExam(Exam) == 0) {
+    res.send(0);
+  } else {
+    res.status(500).send("There was an issue creating the exam, please try again later.");
+  }
   // Send a success status code to the client 
-  
-
 });
 
 
