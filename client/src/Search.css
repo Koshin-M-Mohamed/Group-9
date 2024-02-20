@@ -1,17 +1,23 @@
+
 .search-btn {
-    background-color: #007bff;
+    background-color: rgb(150, 183, 158);
      color: #f3f0f0;
      border-radius: 5px;
-     padding: 10px 10px;
+     padding: 10px 20px;
      font-size: 16px;
+     margin-top: 20px;
+     margin-bottom: 20px;
    }
 
   .search-input{
-    padding: 10px 10px;
+    padding: 10px 20px;
     font-size: 16px;
     border-radius: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
   }
    
    .search-btn:hover {
-     background-color: #0056b3;
+     background-color: rgb(150, 183, 158);;
    }

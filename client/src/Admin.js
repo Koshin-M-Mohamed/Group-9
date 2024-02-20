@@ -1,7 +1,12 @@
+import './Admin.css'
+import './table.css'
 import React from "react";
 import Table from "./table";
 import { useApi } from './hooks/use-api';
 import { Link } from "react-router-dom";
+import AddExam from "./AddExam";
+
+
 
 function Admin(){
     const { response } = useApi({ path: 'https://czi-covid-lypkrzry4q-uc.a.run.app/api/exams'});
@@ -53,7 +58,10 @@ function Admin(){
 
     return(
         <div>
+            <header className="adminHeader">
             <h1>Admin Page</h1>
+            </header>
+            <Link to="/AddExam">Add Exam</Link>
             {exams.length > 0 && <Table data={exams} cols={adminPageColumns} renderCell={renderCell}/>}
         </div>
     )

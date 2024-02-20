@@ -1,0 +1,40 @@
+
+table {
+    width: 80%;
+    margin: 0 auto;
+    border-spacing: 0;
+    overflow-x: auto;
+    border-collapse: collapse;
+    
+  }
+  
+  th, td{  
+    border-bottom: 1px solid;
+    font-size: 15px;
+    text-overflow: ellipsis;
+    padding: 10px;
+  }
+
+  .table th:nth-child(4), 
+  .table td:nth-child(4) {
+   width: 100px; 
+   padding:20px;
+}
+
+  td a{
+    color: rgb(2, 47, 5);
+    font-weight: 600;
+  }
+
+  th {
+    padding-bottom: 20px;
+    background-color:rgb(255, 255, 255);
+    color: #050303;
+    font-weight: normal;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .table, .table-container {
+      overflow-x: auto; 
+    }
+  }

@@ -1,4 +1,6 @@
 import './App.css';
+import './table.css'
+import './Search.css'
 import Table from './table';
 import Search from './Search.js';
 //import fakeData from './mockData.js';
@@ -33,9 +35,10 @@ function App() {
       <div className="App">
         <header className="App-header">
           <Link to="/Admin">Admin Page</Link>
+          </header>
           <Search />
           {exams.length > 0 && <Table data={exams} cols={columns} renderCell={renderCell}/>}        
-        </header>
+        
       </div>
     </>
   );
