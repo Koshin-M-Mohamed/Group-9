@@ -1,11 +1,10 @@
 var express = require('express');
 var router = express.Router();
-const controller = require('../controllers/controller')
-
-router.use(express.json())
+const { getExamByPatientAndExamId, editExam, deleteExam, createAndAddExam } = require('../controllers/controller')
 
 /* GET home page. */
 
+router.use(express.json());
 
 // Gets all the information required to populate on table 
 router.get('/table', function(req, res, next) {
@@ -22,72 +21,101 @@ router.get('/patient', function(req,res,next){
   const PatientID = req.PATIENT_ID;
    
   // Parse the request and get the patientID and then pass it as an argument to the controller function
-    
+
   // Calls controller function to obtain a structure { {the first exam object pt}, {the second exam object pt}, ...}
 });
 
 // An endpoint to get particular information regarding an exam
-router.get('/exam', function(req,res,next){
+// Julian
+router.get('/exam/:PATIENT_ID/:exam_Id', async function(req, res, next) {
   // Calls controller function to obtain information regarding the particular exam
   // the req is going to be a set of 2 k-v pairs, the first being PatientId, the second being the ExamId
-
   // Parse the req object, and obtain both the patientID and the ExamId and store them in variables
+  const PATIENT_ID = req.params.PATIENT_ID;
+  const exam_Id = req.params.exam_Id;
 
+  try {
+    // Pass those variables as arguments to the controller function which will return an object containing information pertaining to exam
+    const exam = await getExamByPatientAndExamId(PATIENT_ID, exam_Id);
 
-
-  // Pass those variables as arguments to the controller function which will return an object containing information pertaining to exam
-
-
+    // Send the exam object as the response
+    res.json(exam);
+  } catch (error) {
+    // If an error occurs, pass it to the error handling middleware
+    next(error);
+  }
 });
 
 // An endpoint to update information regarding some exam
-router.put('/exam', function(req,res,next){
+// Julian 
+router.put('/exam/:PATIENT_ID/:exam_Id', async function(req,res,next){
   // The reuqest must be an object containing all the key value pairs, with the key value pairs updated (but not examID or patientID)
 
   // Parse the request for the patient ID/exam ID, and pass patientID, examID, and the updated object as arguments to the controller function
-
+  const PATIENT_ID = req.params.PATIENT_ID;
+  const exam_Id = req.params.exam_Id;
   // Controller function can return a copy of the updated entry
+  // console.log(req.body);
+  try {
+    // Pass those variables as arguments to the controller function which will return an object containing information pertaining to exam
+    const exam = await editExam(PATIENT_ID, exam_Id, req.body);
+
+    // Send the exam object as the response
+    res.json(exam);
+  } catch (error) {
+    
+    console.log(error);
+  }
 
 });
 
 
 // An endpoint to delete some exam
-router.delete('/exam', (req,res,next) => {
+router.delete('/exam', async function(req,res,next) {
   // The request object must contain two key value pairs: the patient ID and the exam ID
 
   // Parse the request for the patient ID/exam ID and pass these to the controller function associated with deleting from database
-  PatientID = req.get('PatientID');
-  Exam_ID = req.get('exam_Id');
+  const P_ID = req.get('PATIENT_ID');
+  const e_ID = req.get('exam_Id');
+  console.log(P_ID);
+  console.log(e_ID);
   // Controller function can return some status code for successful deletion 
-  controller.DeleteExam({PATIENT_ID: PatientID, exam_Id: Exam_ID});
-  //if (controller.DeleteExam(PatientID, Exam_ID) == 0) {
-  //  res.send(0);
-  //} else {
-  //  res.status(500).send("There was an issue with deleting the exam, please try again later.")
-  //}
-  res.send("Deleting Exam...")
-  next();
+  delete_check = await deleteExam(P_ID,e_ID);
+  console.log(delete_check);
+  if (delete_check == 0) {
+    res.send(0);
+  } else {
+    res.status(500).send("There was an issue with deleting the exam, please try again later.")
+  }
 });
 
 
 // An endpoint to add a new exam to the database
-router.post('/exam', function(req,res,next){
+router.post('/exam', async function(req,res,next){
   // The request object must contain an exam object
-  Exam = req.body;
+  const new_Exam = req.body;
   // Call a controller function which takes the exam object as an argument and adds the exam object to our database
-  if (controller.CreateExam(Exam) == 0) {
-    res.send(0);
-  } else {
-    res.status(500).send("There was an issue creating the exam, please try again later.");
-  }
+  await createAndAddExam(new_Exam);
+  res.status(201).send('Exam Added!');
 
-  next();
   // Send a success status code to the client 
 });
 
 
 
-
+const testExam = {
+  "AGE": 100,
+  "SEX": 'M',
+  "ZIP": 300,
+  "LATEST_BMI": 200,
+  "Patient Name": 'Khalid',
+  "exam_Id": 'Exam-24',
+  "ICU Admit": 'No',
+  "# ICU admits": 3,
+  "MORTALITY": 'N',
+  "LATEST WEIGHT": 100,
+  "PATIENT_ID": 'Khalid',
+  "png_filename": 'N/A'}
 
 
 module.exports = router;

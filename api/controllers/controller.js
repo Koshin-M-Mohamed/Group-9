@@ -1,21 +1,80 @@
-const Exam = require('../db_connection');
+const Exam = require('../models/exam');
 
-// Produce a function that takes patientID, examID as argument and finds the entry in our database that matches these and returns it as an object
+const getExamByPatientAndExamId = async (P_ID, e_Id) => {
+    try {
 
-// Produce a function that takes patientID as argument, and returns a structure containing all exam objects associated with that patient
+        console.log(P_ID);
+        console.log(e_Id);
+        // Retrieve exam data from MongoDB using Mongoose
+        const exam = await Exam.findOne({ PATIENT_ID: P_ID, exam_Id: e_Id });
 
-// Produce a function that takes no arguments, and returns the entire collection of exam objects
-
-// Produce a function that takes patientID, examID and a updated exam object and update the database entry associated with this patientID and examID
-
-// Produce a function that takes PatientID and examID as argument and delete the associated exam
-function DeleteExam(PatientID, EXAMID) {
-    Exam.findOneandDelete({'PATIENT_ID': PatientID, 'exam_Id': EXAMID});
-    return 0;
+        // If exam data is found, return it
+        if (exam) {
+            return exam;
+        } else {
+            // If exam data is not found, return null
+            return null;
+        }
+    } catch (err) {
+        // If an error occurs, log the error and return null
+        console.error('Error fetching exam:', err);
+        return null;
+    }
 };
-// Produce a function that takes an exam object as argument and adds it to the database 
-function CreateExam(PatientID, EXAMID, ExamInfo){
-    new_exam = new Exam(ExamInfo);
-    new_exam.save();
-    return 0;
+
+
+const editExam = async (P_ID, e_Id, examInstance) => {
+    try {
+        // Find the exam object by its Patient ID and Exam ID and update it with the information from examInstance
+        const updatedExam = await Exam.findOneAndUpdate(
+            { PATIENT_ID: P_ID, exam_Id: e_Id },
+            examInstance,
+            { new: true }
+        );
+
+        // Check if the exam was found and updated successfully
+        if (updatedExam) {
+            console.log('Exam updated successfully:', updatedExam);
+            return updatedExam;
+        } else {
+            console.log('Exam not found or not updated');
+            return null;
+        }
+    } catch (err) {
+        // If an error occurs, log the error and return null
+        console.error('Error updating exam:', err);
+        return null;
+    }
 };
+
+const deleteExam = async (P_ID, e_ID) => {
+    try {
+        const deletedDoc = await Exam.deleteOne({PATIENT_ID: P_ID, exam_Id: e_ID});
+
+        if (deletedDoc.ok == 1){
+            return 0;
+        }
+        else {
+            return -1;
+        }
+    } catch (err) {
+        console.error('Error Deleteing Exam, try again later', err);
+    }
+    next();
+};
+
+const createAndAddExam = async (newExam) => {
+    try {
+        examToAdd = new Exam(newExam);
+        await examToAdd.save();
+    } catch (err) {
+        console.error('Error Adding Exam, try again later', err);
+    };
+    next();
+}
+
+// Export the controller function
+module.exports.getExamByPatientAndExamId = getExamByPatientAndExamId;
+module.exports.editExam = editExam;
+module.exports.deleteExam = deleteExam;
+module.exports.createAndAddExam = createAndAddExam;
