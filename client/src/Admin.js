@@ -4,7 +4,6 @@ import React from "react";
 import Table from "./table";
 import { useApi } from './hooks/use-api';
 import { Link } from "react-router-dom";
-import AddExam from "./AddExam";
 
 
 
