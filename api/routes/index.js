@@ -1,16 +1,19 @@
 var express = require('express');
 var router = express.Router();
 const { getExamByPatientAndExamId, editExam } = require('../controllers/controller')
+const {getInitialData} = require('../controllers/controller')
 
 /* GET home page. */
 
 
-// Gets all the information required to populate on table 
-router.get('/table', function(req, res, next) {
-  // Calls controller function to return whole collection
-  res.send('API is working properly!');
+router.get('/table', async function(req, res, next) {
+  try {
+    const exam = await getInitialData();
+    res.json(exam);
+  } catch (error) {
+    next(error);
+  }
 });
-
 
 
 // A route that gets information regarding some particular patient
