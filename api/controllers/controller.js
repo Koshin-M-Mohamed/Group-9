@@ -50,27 +50,22 @@ const editExam = async (P_ID, e_Id, examInstance) => {
 const deleteExam = async (P_ID, e_ID) => {
     try {
         const deletedDoc = await Exam.deleteOne({PATIENT_ID: P_ID, exam_Id: e_ID});
+        return deletedDoc;
 
-        if (deletedDoc.ok == 1){
-            return 0;
-        }
-        else {
-            return -1;
-        }
     } catch (err) {
         console.error('Error Deleteing Exam, try again later', err);
     }
-    next();
 };
 
 const createAndAddExam = async (newExam) => {
     try {
         examToAdd = new Exam(newExam);
         await examToAdd.save();
+        return true;
     } catch (err) {
         console.error('Error Adding Exam, try again later', err);
+        return false
     };
-    next();
 }
 
 // Export the controller function

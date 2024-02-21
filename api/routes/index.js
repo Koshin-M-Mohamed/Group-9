@@ -77,14 +77,15 @@ router.delete('/exam', async function(req,res,next) {
   // Parse the request for the patient ID/exam ID and pass these to the controller function associated with deleting from database
   const P_ID = req.get('PATIENT_ID');
   const e_ID = req.get('exam_Id');
-  console.log(P_ID);
-  console.log(e_ID);
+
   // Controller function can return some status code for successful deletion 
   delete_check = await deleteExam(P_ID,e_ID);
-  console.log(delete_check);
-  if (delete_check == 0) {
-    res.send(0);
+
+  if (delete_check.deletedCount == 1) {
+    // Send success status message
+    res.status(200).send('Exam Successfully Deleted');
   } else {
+    // Send error status message
     res.status(500).send("There was an issue with deleting the exam, please try again later.")
   }
 });
@@ -95,27 +96,14 @@ router.post('/exam', async function(req,res,next){
   // The request object must contain an exam object
   const new_Exam = req.body;
   // Call a controller function which takes the exam object as an argument and adds the exam object to our database
-  await createAndAddExam(new_Exam);
-  res.status(201).send('Exam Added!');
+  if( await createAndAddExam(new_Exam)){
+    // Send a success status code to the client 
+    res.status(201).send('Exam Created Successfully');
+  } else {
+    // Send an error code to the client
+    res.send('There was an issue saving the exam, please try again later.');
+  }
 
-  // Send a success status code to the client 
 });
-
-
-
-const testExam = {
-  "AGE": 100,
-  "SEX": 'M',
-  "ZIP": 300,
-  "LATEST_BMI": 200,
-  "Patient Name": 'Khalid',
-  "exam_Id": 'Exam-24',
-  "ICU Admit": 'No',
-  "# ICU admits": 3,
-  "MORTALITY": 'N',
-  "LATEST WEIGHT": 100,
-  "PATIENT_ID": 'Khalid',
-  "png_filename": 'N/A'}
-
 
 module.exports = router;
