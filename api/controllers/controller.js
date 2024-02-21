@@ -1,7 +1,27 @@
 const Exam = require('../models/exam');
 
-const getExamByPatientAndExamId = async (P_ID, e_Id) => {
+const getInitialData = async () => {
     try {
+        // Assuming you have a model to fetch some initial data, for example, a list of exams
+        const initialData = await SomeModel.find({}); // Adjust this line based on what initial data you want to fetch
+
+        // If data is found, return it
+        if (initialData) {
+            return initialData;
+        } else {
+            // If no data is found, you might want to return an empty array or a default object
+            return [];
+        }
+    } catch (err) {
+        // If an error occurs, log the error and return null or an error message
+        console.error('Error fetching initial data:', err);
+        return null;
+    }
+};
+
+
+const getExamByPatientAndExamId = async (P_ID, e_Id) => {
+    try { 
 
         console.log(P_ID);
         console.log(e_Id);
