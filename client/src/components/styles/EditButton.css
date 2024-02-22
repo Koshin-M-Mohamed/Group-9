@@ -1,0 +1,15 @@
+.editButton {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    padding: 10px 20px; /* Padding around the text */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Change mouse cursor on hover */
+    font-size: 16px; /* Font size */
+    transition: background-color 0.2s, transform 0.2s; /* Smooth transition for hover effect */
+  }
+  
+  .editButton:hover {
+    background-color: #45a049; /* Darker shade of green on hover */
+    transform: scale(1.05); /* Slightly increase the button size on hover */
+  }
