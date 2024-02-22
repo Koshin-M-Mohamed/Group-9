@@ -30,17 +30,15 @@ function Admin() {
   };
 
     return (
-      <div className="Admin">
-        <header className="Admin-header">
-          {/* NOTE: create button here */}
+      <div>
+        <header className="adminHeader">
+        <h1>Admin Page</h1> 
+        </header>
           {fakeData && (
             <Table
               data={fakeData}
               cols={adminPageColumns}
-              renderCell={makePatientLink}
-            />
-          )}
-        </header>
+              renderCell={makePatientLink}/>)}
       </div>
     );
  }

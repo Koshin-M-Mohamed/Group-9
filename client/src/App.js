@@ -56,17 +56,6 @@ function App() {
           )}
         </header>
       </div>
-
-      <div className="App">
-        <header className="App-header">
-          {response && (
-            <Table
-              data={response}
-              cols={columns}
-            />
-          )}
-        </header>
-      </div>
     </>
   );
 }
