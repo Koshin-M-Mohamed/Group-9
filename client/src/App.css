@@ -2,6 +2,63 @@
   text-align: center;
 }
 
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.App-examwindow {
+  display: flex;
+}
+
+.App-exampane {
+  margin: 15px;
+  width: 100%;
+  font-size: 24px;
+}
+
+.App-patientpane {
+  margin: 15px;
+  width: 100%;
+  font-size: 24px;
+}
+
+.App-categoryheader {
+  border-bottom: double;
+}
+
+.App-infodata {
+  background-color: gainsboro;
+  padding: 0%;
+  margin: 0;
+}
+
+.break {
+  flex-basis: 100%;
+  height: 0;
+}
+
+.exam-thumbnail {
+  margin: 50px;
+}
+
+.App {
+  text-align: center;
+}
+
 .App-header {
   min-height: 10vh;
   display: flex;
@@ -12,31 +69,48 @@
 }
 
 .search-btn {
- background-color: #007bff;
-  color: #f3f0f0;
-  border-radius: 5px;
-}
+  background-color: #007bff;
+   color: #f3f0f0;
+   border-radius: 5px;
+   padding: 10px 20px;
+   font-size: calc(5px + 2vmin);
+   margin-bottom: 20px;
+ }
 
-.search-btn:hover {
-  background-color: #0056b3;
+.search-input{
+  padding: 10px 20px;
+  font-size: calc(5px + 2vmin);
+  border-radius: 5px;
+  margin-bottom: 20px;
 }
+ 
+ .search-btn:hover {
+   background-color: #0056b3;
+ }
 
 
 .table {
   width: 100%;
-  margin: 1 auto;
+  margin: 0 auto;
   border-collapse: collapse;
+  overflow-x: auto;
 }
 
 th, td{
   width: 30%;
-
   border: 1px solid #050303;
-  padding: 50px;
-  font-size: 40px;
+  padding: 10px;
+  font-size: calc(3px + 2vmin);
 }
 
 th {
   background-color:aliceblue;
   color: black;
 }
+
+@media screen and (max-width: 600px) {
+  .table, .table-container {
+    overflow-x: auto; 
+  }
+}
+

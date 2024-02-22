@@ -1,38 +1,48 @@
 import React from "react";
+//import {link} from "react-router-dom";
 import Table from "./table";
-import {fakeData} from './mockData'
+import fakeData from './mockData.js';
+import DeleteButton from "./components/DeleteButton.js";
+import EditButton from "./components/EditButton.js";
+import { Link } from "react-router-dom";
 
-function Admin(){
-    const adminPageColumns = ['Patient_ID', 'Exam_Id', 'Age', 'Sex', 'Zip',  'Image', 'Edit', 'Delete'];
+function Admin() {    
+    const adminPageColumns = ['Patient_ID', 'Exam_Id', 'Age', 'Sex', 'Zip',  'Image', 'Action'];
+
     //Function To Add edit or delete buttons to a cell
-    const makeButton = (colName, data, row, rowIndex) => {
-        if (colName == 'Delete'){
-            return <button onClick={()=> handleDelete(row, rowIndex)}>Delete</button>;
-        }
-        else if(colName=='Edit'){
-            return <button onClick={()=> handleEdit(row, rowIndex)}>Edit</button>;
-        }
-        else{
-            return data; 
-        }
-    };
-    // Fuction to delete data from a row
-    const handleDelete = (row, rowIndex) => {
-        console.log("Deleting Exam Data", rowIndex, row);
-        //function tbd
-    };
-    // Function to edit exam information
-    const handleEdit = (row, rowIndex) => {
-        console.log("Editing Exam Data", rowIndex, row);
-        //function tbd
-    };
+    const makePatientLink = (colName, data, row, rowIndex) => {
 
-    return(
+        //Patient-ID
+        if (colName === "Patient_ID") {
+          return <Link to={`/Patient?Patientid=${data}`}>{data}</Link>;
+        }
+        // Action
+    if(colName === "Action"){
+      return (
+        <>
+          <DeleteButton Label={"delete"}/>
+          <EditButton Label={"edit"}/> 
+        </>
+      )    
+    }
+    
+    return data;
+  };
 
-        <div>
-            <h1>Admin Page</h1>
-            <Table data={fakeData} cols={adminPageColumns} renderCell={makeButton}/>
-        </div>
-    )
-}
+    return (
+      <div className="Admin">
+        <header className="Admin-header">
+          {/* NOTE: create button here */}
+          {fakeData && (
+            <Table
+              data={fakeData}
+              cols={adminPageColumns}
+              renderCell={makePatientLink}
+            />
+          )}
+        </header>
+      </div>
+    );
+ }
+      
 export default Admin;
