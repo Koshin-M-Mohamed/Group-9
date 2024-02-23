@@ -3,33 +3,60 @@ import './table.css'
 import React from "react";
 //import {link} from "react-router-dom";
 import Table from "./table";
-import DeleteButton from "./components/DeleteButton.js";
-import EditButton from "./components/EditButton.js";
+import { useApi } from './hooks/use-api';
 import { Link } from "react-router-dom";
 
 
 
 function Admin(){
-    const adminPageColumns = ['Patient_ID', 'Exam_Id', 'Age', 'Sex', 'Zip',  'Image', 'Edit', 'Delete'];
-    //Function To Add edit or delete buttons to a cell
-    const makePatientLink = (colName, data, row, rowIndex) => {
+    const { response } = useApi({ path: 'https://czi-covid-lypkrzry4q-uc.a.run.app/api/exams'});
+    console.log("API response:", response);
+    const exams = response ? JSON.parse(response).exams : [];
+    console.log("Parsed exams:", exams);
+    const columns = ['patientId', 'examId','imageURL', 'keyFindings', 'age', 'sex', 'Action'];
+        //Function To Add edit or delete buttons to a cell
+    const EditButton = ({onClick, Label}) => {
+        return (
+              <button onClick={onClick} >
+              {Label}
+              </button>);
+      };
 
-        //Patient-ID
-        if (colName === "Patient_ID") {
-          return <Link to={`/Patient?Patientid=${data}`}>{data}</Link>;
-        }
-        // Action
-    if(colName === "Action"){
-      return (
-        <>
-          <DeleteButton Label={"delete"}/>
-          <EditButton Label={"edit"}/> 
-        </>
-      )    
-    }
+      const DeleteButton = ({onClick, Label}) => {
+        return (
+            <button onClick={onClick}>
+                {Label}
+                </button>);
+      };
     
-    return data;
-  };
+      const makeButtonLink = (colName, data) => {
+
+        return (
+            <>
+            <DeleteButton Label={"delete"}/>
+            <EditButton Label={"edit"}/> 
+            </>
+        );
+     };
+
+  const renderCell = (col, value, row, rowIndex) => {
+    if (value == null) {
+        return <td key={`${rowIndex}-${col}`}>N/A</td>;
+    } else {
+        switch (col) {
+            case 'Action':
+                return <td key={`${rowIndex}-${col}`}>{makeButtonLink(col, row, rowIndex)}</td>;
+            case 'patientId':
+            case 'examId':
+                return <td key={`${rowIndex}-${col}`}><Link to={`/${col}/${value}`}>{value}</Link></td>;
+            case 'imageURL':
+                return <td key={`${rowIndex}-${col}`}><img src={value} alt={`Exam ${row.examId}`} style={{ width: "100px", height: "auto" }} /></td>;
+            default:
+                return value;
+        }
+    }
+};
+
 
     return(
         <div>
@@ -37,7 +64,7 @@ function Admin(){
             <h1>Admin Page</h1>
             </header>
             <Link to="/AddExam">Add Exam</Link>
-            {exams.length > 0 && <Table data={exams} cols={adminPageColumns} renderCell={renderCell}/>}
+            {exams.length > 0 && <Table data={exams} cols={columns} renderCell={renderCell}/>}
         </div>
     )
 
