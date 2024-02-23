@@ -17,12 +17,12 @@ router.get('/table', async function(req, res, next) {
 
 
 // A route that gets information regarding some particular patient
-router.get('/patient', function(req,res,next){
+router.get('/patient/:PATIENT_ID', function(req,res,next){  
   // The req is going to be a set of one key value pair which is just the patientID
 
   const PatientID = req.PATIENT_ID;
-   
-  // Parse the request and get the patientID and then pass it as an argument to the controller function
+
+   // Parse the request and get the patientID and then pass it as an argument to the controller function
 
   // Calls controller function to obtain a structure { {the first exam object pt}, {the second exam object pt}, ...}
 });

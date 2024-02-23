@@ -3,7 +3,7 @@ const Exam = require('../models/exam');
 const getInitialData = async () => {
     try {
         // Assuming you have a model to fetch some initial data, for example, a list of exams
-        const initialData = await ExamSchema.find({}); // Adjust this line based on what initial data you want to fetch
+        const initialData = await Exam.find({}); // Adjust this line based on what initial data you want to fetch
 
         // If data is found, return it
         if (initialData) {
@@ -18,6 +18,8 @@ const getInitialData = async () => {
         return null;
     }
 };
+
+// for controller function, make sure to get all exams for the patient_ID passed as argument 
 
 
 const getExamByPatientAndExamId = async (P_ID, e_Id) => {
