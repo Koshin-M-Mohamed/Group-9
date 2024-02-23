@@ -101,7 +101,7 @@ router.post('/exam', async function(req,res,next){
     res.status(201).send('Exam Created Successfully');
   } else {
     // Send an error code to the client
-    res.send('There was an issue saving the exam, please try again later.');
+    res.status(500).send('There was an issue saving the exam, please try again later.');
   }
 
 });
