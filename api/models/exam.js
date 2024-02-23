@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 async function connect () {
     try {
-        await mongoose.connect('mongodb+srv://julianbiju001:Password123@techdive.jkyexu6.mongodb.net/PatientData?retryWrites=true&w=majority');
+        await mongoose.connect("");
         console.log("works")
   
         
@@ -21,19 +21,18 @@ async function connect () {
 
 // We will create a schema, which will define the specifications of our datastructure
 // The argument should be an object with attributes and the types
-ExamSchema = new mongoose.Schema(
-    {"AGE": Number},
-    {"SEX": String},
-    {"ZIP": Number},
-    {"LATEST_BMI": Number},
-    {"Patient Name": String},
-    {"exam_Id": String},
-    {"ICU Admit": String},
-    {"# ICU admits": Number},
-    {"MORTALITY": String},
-    {"LATEST WEIGHT": Number},
-    {"PATIENT_ID": String},
-    {"png_filename": String},
+ExamSchema = new mongoose.Schema({
+    "AGE": {type: Number},
+    "SEX": {type: String},
+    "ZIP": {type: Number},
+    "LATEST_BMI": {type: Number},
+    "exam_Id": {type: String},
+    "ICU Admit": {type: String},
+    "# ICU admits": {type: Number},
+    "MORTALITY": {type: String},
+    "LATEST WEIGHT": {type: Number},
+    "PATIENT_ID": {type: String},
+    "png_filename": {type: String},}
 
 
 );

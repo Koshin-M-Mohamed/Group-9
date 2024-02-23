@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
-const { getExamByPatientAndExamId, editExam } = require('../controllers/controller')
+const { getExamByPatientAndExamId, editExam, deleteExam, createAndAddExam } = require('../controllers/controller')
 
 /* GET home page. */
 
+router.use(express.json());
 
 // Gets all the information required to populate on table 
 router.get('/table', function(req, res, next) {
@@ -70,30 +71,39 @@ router.put('/exam/:PATIENT_ID/:exam_Id', async function(req,res,next){
 
 
 // An endpoint to delete some exam
-router.delete('/exam', function(req,res,next){
+router.delete('/exam', async function(req,res,next) {
   // The request object must contain two key value pairs: the patient ID and the exam ID
 
   // Parse the request for the patient ID/exam ID and pass these to the controller function associated with deleting from database
+  const P_ID = req.get('PATIENT_ID');
+  const e_ID = req.get('exam_Id');
 
   // Controller function can return some status code for successful deletion 
+  delete_check = await deleteExam(P_ID,e_ID);
 
+  if (delete_check.deletedCount == 1) {
+    // Send success status message
+    res.status(200).send('Exam Successfully Deleted');
+  } else {
+    // Send error status message
+    res.status(500).send("There was an issue with deleting the exam, please try again later.")
+  }
 });
 
 
 // An endpoint to add a new exam to the database
-router.post('/exam', function(req,res,next){
+router.post('/exam', async function(req,res,next){
   // The request object must contain an exam object
-  
+  const new_Exam = req.body;
   // Call a controller function which takes the exam object as an argument and adds the exam object to our database
-
-  // Send a success status code to the client 
-  
+  if( await createAndAddExam(new_Exam)){
+    // Send a success status code to the client 
+    res.status(201).send('Exam Created Successfully');
+  } else {
+    // Send an error code to the client
+    res.status(500).send('There was an issue saving the exam, please try again later.');
+  }
 
 });
-
-
-
-
-
 
 module.exports = router;
