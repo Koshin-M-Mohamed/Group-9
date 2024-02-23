@@ -1,3 +1,4 @@
+ 
  const fakeData =  Array.from({ length: 10 }, (_, i) => ({
       Patient_ID: `PATIENT_${i + 1}`,
       Age: 20 + i + 1,
@@ -11,4 +12,5 @@
       ICU_admits: (i + 1) % 3, // Cycles through 0, 1, 2
       Mortality: (i + 1) % 4 !== 0 ? "Alive" : "Deceased"
     }));
-    export default fakeData 
+  export default fakeData 
+  
