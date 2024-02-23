@@ -3,7 +3,7 @@ const Exam = require('../models/exam');
 const getInitialData = async () => {
     try {
         // Assuming you have a model to fetch some initial data, for example, a list of exams
-        const initialData = await SomeModel.find({}); // Adjust this line based on what initial data you want to fetch
+        const initialData = await ExamSchema.find({}); // Adjust this line based on what initial data you want to fetch
 
         // If data is found, return it
         if (initialData) {
