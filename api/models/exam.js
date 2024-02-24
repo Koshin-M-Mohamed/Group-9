@@ -32,10 +32,8 @@ ExamSchema = new mongoose.Schema({
     "MORTALITY": {type: String},
     "LATEST WEIGHT": {type: Number},
     "PATIENT_ID": {type: String},
-    "png_filename": {type: String},}
-
-
-);
+    "png_filename": {type: String},
+});
 // Now, we have a specification of what the datastructure must adhere to
 // We will create a model, which feels like some sort of class that can be instantiated
 // to produce instances of the model
