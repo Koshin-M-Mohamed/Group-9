@@ -3,7 +3,7 @@ const Exam = require('../models/exam');
 const getInitialData = async () => {
     try {
         // Assuming you have a model to fetch some initial data, for example, a list of exams
-        const initialData = await Exam.find({}); // Adjust this line based on what initial data you want to fetch
+        const initialData = await Exam.find(); // Adjust this line based on what initial data you want to fetch
 
         // If data is found, return it
         if (initialData) {
@@ -14,12 +14,30 @@ const getInitialData = async () => {
         }
     } catch (err) {
         // If an error occurs, log the error and return null or an error message
-        console.error('Error fetching initial data:', err);
+        console.log('Error fetching initial data:', err);
         return null;
     }
 };
 
 // for controller function, make sure to get all exams for the patient_ID passed as argument 
+
+const getAllExams = async (P_ID) => {
+    try {
+        // Retrieve all exam data from MongoDB using Mongoose
+        const allExams = await Exam.find({PATIENT_ID: P_ID});
+
+        // If exams are found, return them
+        if (allExams) {
+            return allExams;
+        } else {
+            return null;
+        }
+    } catch (err) {
+        // If an error occurs, log the error and return null
+        console.error('Error fetching all exams:', err);
+        return null;
+    }
+};
 
 
 const getExamByPatientAndExamId = async (P_ID, e_Id) => {
@@ -70,4 +88,6 @@ const editExam = async (P_ID, e_Id, examInstance) => {
 };
 // Export the controller function
 module.exports.getExamByPatientAndExamId = getExamByPatientAndExamId;
+module.exports.getInitialData = getInitialData;
+module.exports.getAllExams = getAllExams;
 module.exports.editExam = editExam;

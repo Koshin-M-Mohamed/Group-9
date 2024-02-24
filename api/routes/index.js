@@ -2,11 +2,14 @@ var express = require('express');
 var router = express.Router();
 const { getExamByPatientAndExamId, editExam } = require('../controllers/controller')
 const {getInitialData} = require('../controllers/controller')
+const {getAllExams} = require('../controllers/controller')
+
 
 /* GET home page. */
 
-
-router.get('/table', async function(req, res, next) {
+router.use(express.json());
+router.get('/table', async function(req, res, next) { 
+  console.log("get request received");
   try {
     const exam = await getInitialData();
     res.json(exam);
@@ -17,14 +20,23 @@ router.get('/table', async function(req, res, next) {
 
 
 // A route that gets information regarding some particular patient
-router.get('/patient/:PATIENT_ID', function(req,res,next){  
+router.get('/patient/:PATIENT_ID', async function(req,res){  
   // The req is going to be a set of one key value pair which is just the patientID
+  console.log("get request recieved");
 
-  const PatientID = req.PATIENT_ID;
+  const PatientID = req.params.PATIENT_ID;
 
-   // Parse the request and get the patientID and then pass it as an argument to the controller function
+  try {
+    // Pass those variables as arguments to the controller function which will return an object containing information pertaining to exam
+    const exam = await getAllExams(PatientID);
 
-  // Calls controller function to obtain a structure { {the first exam object pt}, {the second exam object pt}, ...}
+    // Send the exam object as the response
+    res.json(exam);
+  } catch (error) {
+    // If an error occurs, pass it to the error handling middleware
+    console.log(error);
+  }
+
 });
 
 // An endpoint to get particular information regarding an exam
