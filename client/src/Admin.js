@@ -14,7 +14,25 @@ function Admin(){
     const exams = response ? JSON.parse(response).exams : [];
     console.log("Parsed exams:", exams);
     const columns = ['patientId', 'examId','imageURL', 'keyFindings', 'age', 'sex', 'Action'];
-        //Function To Add edit or delete buttons to a cell
+        
+    //Edit interface needed to implement editing logic
+    const handleEdit = (examID) => {
+        console.log("Editing exam");
+        //history.push(`/edit-exam/${examId}`);
+    };
+
+    const handleDelete = async(examId) => {
+        try{
+            await fetch('https://czi-covid-lypkrzry4q-uc.a.run.app/api/patient/COVID-19-AR-16406504', {
+                method: 'DELETE',
+            });
+            alert("Exam Deleted");
+        } catch(error){
+            console.error("Error deleting exam:", error);
+            alert("Failed to Delete");
+        }
+    };
+
     const EditButton = ({onClick, Label}) => {
         return (
               <button onClick={onClick} >
@@ -29,15 +47,17 @@ function Admin(){
                 </button>);
       };
     
-      const makeButtonLink = (colName, data) => {
+      const makeButtonLink = (col, row, rowIndex) => {
 
         return (
             <>
-            <DeleteButton Label={"delete"}/>
-            <EditButton Label={"edit"}/> 
+            <EditButton onClick={() => handleEdit(row.examId)} label="Edit" />
+            <DeleteButton onClick={() => handleDelete(row.examId)} label="Delete" /> 
             </>
         );
      };
+
+
 
   const renderCell = (col, value, row, rowIndex) => {
     if (col != 'Action' && value == null) {
