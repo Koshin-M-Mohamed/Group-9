@@ -51,8 +51,8 @@ function Admin(){
 
         return (
             <>
-            <EditButton onClick={() => handleEdit(row.examId)} label="Edit" />
-            <DeleteButton onClick={() => handleDelete(row.examId)} label="Delete" /> 
+            <EditButton onClick={() => handleEdit(row.examId)} Label="Edit" />
+            <DeleteButton onClick={() => handleDelete(row.examId)} Label="Delete" /> 
             </>
         );
      };
