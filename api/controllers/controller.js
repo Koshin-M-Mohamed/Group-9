@@ -86,10 +86,33 @@ const editExam = async (P_ID, e_Id, examInstance) => {
         console.error('Error updating exam:', err);
         return null;
     }
+    
 };
 
+const deleteExam = async (P_ID, e_ID) => {
+    try {
+        const deletedDoc = await Exam.deleteOne({PATIENT_ID: P_ID, exam_Id: e_ID});
+        return deletedDoc;
+
+    } catch (err) {
+        console.error('Error Deleteing Exam, try again later', err);
+    }
+}
+
+const createAndAddExam = async (newExam) => {
+    try {
+        examToAdd = new Exam(newExam);
+        await examToAdd.save();
+        return true;
+    } catch (err) {
+        console.error('Error Adding Exam, try again later', err);
+        return false
+    };
+}
 // Export the controller function
 module.exports.getExamByPatientAndExamId = getExamByPatientAndExamId;
 module.exports.getInitialData = getInitialData;
 module.exports.getAllExams = getAllExams;
 module.exports.editExam = editExam;
+module.exports.deleteExam = deleteExam;
+module.exports.createAndAddExam = createAndAddExam;
