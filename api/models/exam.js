@@ -1,19 +1,6 @@
 const mongoose = require('mongoose')
 
-async function connect () {
-    try {
-        await mongoose.connect("");
-        console.log("works")
-  
-        
-    } catch (error) {
-        console.log(error.message);
-    }
-  
-    
-  }
-  
-  connect()
+
 
 
 
