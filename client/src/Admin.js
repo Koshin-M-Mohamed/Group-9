@@ -40,17 +40,17 @@ function Admin(){
      };
 
   const renderCell = (col, value, row, rowIndex) => {
-    if (value == null) {
+    if (col != 'Action' && value == null) {
         return <td key={`${rowIndex}-${col}`}>N/A</td>;
     } else {
         switch (col) {
             case 'Action':
-                return <td key={`${rowIndex}-${col}`}>{makeButtonLink(col, row, rowIndex)}</td>;
+                return makeButtonLink(col, row, rowIndex);
             case 'patientId':
             case 'examId':
-                return <td key={`${rowIndex}-${col}`}><Link to={`/${col}/${value}`}>{value}</Link></td>;
+                return <Link to={`/${col}/${value}`}>{value}</Link>;
             case 'imageURL':
-                return <td key={`${rowIndex}-${col}`}><img src={value} alt={`Exam ${row.examId}`} style={{ width: "100px", height: "auto" }} /></td>;
+                return <img src={value} alt={`Exam ${row.examId}`} style={{ width: "100px", height: "auto" }} />;
             default:
                 return value;
         }
