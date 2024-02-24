@@ -84,6 +84,7 @@ function Admin(){
             <h1>Admin Page</h1>
             </header>
             <Link to="/AddExam">Add Exam</Link>
+            <Link to="/UpdateExamForm">edit Exam</Link>
             {exams.length > 0 && <Table data={exams} cols={columns} renderCell={renderCell}/>}
         </div>
     )
