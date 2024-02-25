@@ -10,6 +10,22 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+
+async function connect () {
+  try {
+      await mongoose.connect("mongodb+srv://julianbiju001:Password123@techdive.jkyexu6.mongodb.net/PatientData?retryWrites=true&w=majority");
+      console.log("works")
+
+      
+  } catch (error) {
+      console.log(error.message);
+  }
+
+  
+}
+
+connect()
+
 app.use(logger('dev'));
 app.use(cors());
 app.use(express.json());
