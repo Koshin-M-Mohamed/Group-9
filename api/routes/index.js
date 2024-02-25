@@ -19,26 +19,6 @@ router.get('/table', async function(req, res, next) {
   }
 });
 
-
-router.get('/patient/:PATIENT_ID', async function(req,res){  
-  // The req is going to be a set of one key value pair which is just the patientID
-  console.log("get request recieved");
-
-  const PatientID = req.params.PATIENT_ID;
-
-  try {
-    // Pass those variables as arguments to the controller function which will return an object containing information pertaining to exam
-    const exam = await getAllExams(PatientID);
-
-    // Send the exam object as the response
-    res.json(exam);
-  } catch (error) {
-    // If an error occurs, pass it to the error handling middleware
-    console.log(error);
-  }
-
-});
-
 // An endpoint to get particular information regarding an exam
 // Julian
 router.get('/exam/:PATIENT_ID/:exam_Id', async function(req, res, next) {
@@ -58,6 +38,25 @@ router.get('/exam/:PATIENT_ID/:exam_Id', async function(req, res, next) {
     // If an error occurs, pass it to the error handling middleware
     next(error);
   }
+});
+
+router.get('/patient/:PATIENT_ID', async function(req,res){  
+  // The req is going to be a set of one key value pair which is just the patientID
+  console.log("get request recieved");
+
+  const PatientID = req.params.PATIENT_ID;
+
+  try {
+    // Pass those variables as arguments to the controller function which will return an object containing information pertaining to exam
+    const exam = await getAllExams(PatientID);
+
+    // Send the exam object as the response
+    res.json(exam);
+  } catch (error) {
+    // If an error occurs, pass it to the error handling middleware
+    console.log(error);
+  }
+
 });
 
 // An endpoint to update information regarding some exam
@@ -85,12 +84,12 @@ router.put('/exam/:PATIENT_ID/:exam_Id', async function(req,res,next){
 
 
 // An endpoint to delete some exam
-router.delete('/exam', async function(req,res,next) {
+router.delete('/exam/:PATIENT_ID/:exam_Id', async function(req,res,next) {
   // The request object must contain two key value pairs: the patient ID and the exam ID
 
   // Parse the request for the patient ID/exam ID and pass these to the controller function associated with deleting from database
-  const P_ID = req.get('PATIENT_ID');
-  const e_ID = req.get('exam_Id');
+  const P_ID = req.params.PATIENT_ID;
+  const e_ID = req.params.exam_Id;
 
   // Controller function can return some status code for successful deletion 
   delete_check = await deleteExam(P_ID,e_ID);

@@ -1,41 +1,40 @@
 import ExamInfo from "../components/ExamInfo";
 import PatientInfo from "../components/Patientinfo";
+import { useApi } from "../hooks/use-api";
 
 
 
-async function _fetchExam(Patient_ID, exam_Id) {
-    uri_string = 'localhost:9000' + Patient_ID + exam_Id
-    const request = new Request(uri_string);
-    const response = await fetch(request).json();
+function _fetchExam(Patient_ID, exam_Id) {
+    const uri_string = ('exam/' + Patient_ID + '/' + exam_Id);
+    const response = useApi({ path : uri_string});
+    console.log(response);
 
     return response;
 };
 
 function ExamViewer({Patient_ID, exam_Id}) {
 
-    exam = JSON.parse(_fetchExam(Patient_ID, exam_Id));
-    patientInfo = {
-        'Patient_ID' : exam.Patient_ID,
-        'Age': exam.Age,
-        'Sex': exam.Sex,
-        'Zip': exam.Zip,
-        'Latest_BMI': exam.Latest_BMI,
-        'Latest_weight': exam.Latest_weight,
-    };
-    examInfo = {
-        'Exam Id': exam.exam_Id,
-        'ICU Admit': exam.ICU_Admit,
-        'ICU Admits': exam.ICU_admits,
-        'Mortality': exam.Mortality
-    };
+    const exam = _fetchExam(Patient_ID, exam_Id);
+    console.log('exam', exam);
 
-    return (
-    < >
-    <div className="App-examwindow">
-        <ExamInfo className="App-examwindow"/>
-        <PatientInfo className="App-patientwindow"/>
-    </div>
-    </>);
-}
+    const examInfo = JSON.parse(exam['response']);
+    console.log(examInfo);
+    
+    if (examInfo) {
+
+        return (
+        < >
+        <div className="App-examwindow">
+            <ExamInfo className="App-examwindow" examInfo= {examInfo}/>
+            <PatientInfo className="App-patientwindow" patientInfo= {examInfo}/>
+        </div>
+        </>);
+    } else {
+        
+        return (
+        <h1>No Exam Specified</h1>
+        );
+    }
+};
 
 export default ExamViewer;

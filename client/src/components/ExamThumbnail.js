@@ -1,5 +1,3 @@
-import { fakeData } from "../mockData";
-
 function Exam_IMG() {
     return (
         <div>
