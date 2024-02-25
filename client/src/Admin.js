@@ -9,11 +9,11 @@ import { Link } from "react-router-dom";
 
 
 function Admin(){
-    const { response } = useApi({ path: '/table'});
+    const { response } = useApi({ path: 'table'});
     console.log("API response:", response);
     const exams = response ? JSON.parse(response).exams : [];
     console.log("Parsed exams:", exams);
-    const columns = ['patientId', 'examId','imageURL', 'keyFindings', 'age', 'sex', 'Action'];
+    const columns = ['PATIENT_ID', 'examId','LATEST WEIGHT', 'LATEST_BMI', 'AGE', 'SEX', 'Action'];
         
     //Edit interface needed to implement editing logic
     const handleEdit = (examID) => {
