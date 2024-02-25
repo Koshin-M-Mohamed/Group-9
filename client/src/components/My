@@ -1,0 +1,26 @@
+function UpdateExamForm({ initialData, handlePatientUpdate, handleChange }) {
+    const [formData, setFormData] = useState(initialData); // Step 1
+
+    const handleChange = (e) => { // Step 2 & 3
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleSubmit = (e) => { // Step 4
+        e.preventDefault();
+        handlePatientUpdate(formData);
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <input
+                type="text"
+                name="Patient_ID"
+                value={formData.Patient_ID || ''}
+                onChange={handleChange}
+            />
+            {/* Repeat for other fields */}
+            <button type="submit">Submit Changes</button>
+        </form>
+    );
+}

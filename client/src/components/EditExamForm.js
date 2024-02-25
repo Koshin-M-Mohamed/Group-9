@@ -1,38 +1,89 @@
-import React, { useState } from "react";
-import './EditForm.css'; 
+import React, { useState } from 'react';
 
-    function EditForm({ initialData, onSave, onCancel }) {
-      const [formData, setFormData] = useState(initialData);
-    
-      const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-      };
-    
-      const handleSubmit = (e) => {
-        e.preventDefault();
-        onSave(formData);
-      };
-    
-      const handleCancel = () => {
-        onCancel();
-      };
-    
-      return (
-        <form onSubmit={handleSubmit}>
-          <label>
-            Name:
-            <input type="Patient_ID" Name="Exam_Id" value={formData.name} onChange={handleChange} />
-          </label>
-          <label>
-            Detail:
-            <input type="Age" name="Sex" value={formData.email} onChange={handleChange} />
-          </label>
-          {/* Add more input fields for other data */}
-          <button type="submit">Save</button>
-          <button type="button" onClick={handleCancel}>Cancel</button>
-        </form>
-      );
-    }
-    
-    export default EditForm;
+function UpdateExamForm({ initialData, onUpdate }) {
+  const [formData, setFormData] = useState(initialData);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onUpdate(formData);
+  };
+
+  return (
+    <div>
+      <h2>Update Exam</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Patient ID:</label>
+          <input
+            type="text"
+            name="patientId"
+            value={formData.patientId}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Exam ID:</label>
+          <input
+            type="text"
+            name="examId"
+            value={formData.examId}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Age:</label>
+          <input
+            type="text"
+            name="Age"
+            value={formData.Age} 
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Sex:</label>
+          <input
+            type="text"
+            name="Sex"
+            value={formData.Sex} 
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Zip:</label>
+          <input
+            type="text"
+            name="Zip"
+            value={formData.Zip} 
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Image:</label>
+          <input
+            type="text"
+            name="Image"
+            value={formData.Image} 
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>BMI:</label>
+          <input
+            type="text"
+            name="BMI"
+            value={formData.BMI} 
+            onChange={handleChange}
+          />
+        </div>
+        <button type="submit">Update Exam</button>
+      </form>
+    </div>
+  );
+}
+
+export default UpdateExamForm;

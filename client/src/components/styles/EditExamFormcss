@@ -1,0 +1,41 @@
+/* Group-9/client/src/components/update.css */
+
+/* Style for the Update Exam form container */
+.update-exam-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Style for form labels */
+  label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  /* Style for form inputs */
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  /* Style for the submit button */
+  button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  /* Hover effect for the submit button */
+  button:hover {
+    background-color: #0056b3;
+  }

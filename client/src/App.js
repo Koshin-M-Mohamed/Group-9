@@ -21,7 +21,6 @@ function App() {
     }
     switch(col) {
       case 'patientId':
-        return <Link to={`/${col}/${value}`}>{value}</Link>;
       case 'examId':
         return <Link to={`/${col}/${value}`}>{value}</Link>;
       case 'imageURL':
@@ -38,8 +37,7 @@ function App() {
           <Link to="/Admin">Admin Page</Link>
           </header>
           <Search />
-          {exams.length > 0 && <Table data={exams} cols={columns} renderCell={renderCell}/>}        
-        
+          {exams.length > 0 && <Table data={exams} cols={columns} renderCell={renderCell}/>}       
       </div>
     </>
   );

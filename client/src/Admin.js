@@ -51,7 +51,8 @@ function Admin(){
 
         return (
             <>
-            <EditButton onClick={() => handleEdit(row.examId)} Label="Edit" />
+            <EditButton onClick={(EditExamForm) => handleEdit(row.examId)} Label="Edit" />
+            <Link to="/EditExamForm">EditExamForm</Link>
             <DeleteButton onClick={() => handleDelete(row.examId)} Label="Delete" /> 
             </>
         );
@@ -82,9 +83,11 @@ function Admin(){
         <div>
             <header className="adminHeader">
             <h1>Admin Page</h1>
+            <header className='EditButton'>
+            <Link to="/UpdateExamPage">UpdateExamForm</Link>
+            </header>
             </header>
             <Link to="/AddExam">Add Exam</Link>
-            <Link to="/UpdateExamForm">edit Exam</Link>
             {exams.length > 0 && <Table data={exams} cols={columns} renderCell={renderCell}/>}
         </div>
     )
