@@ -8,6 +8,7 @@ export function useApi({ path } = { path: '' }) {
   useEffect(() => {
     const isFullPath = path.startsWith('http://') || path.startsWith('https://');
     const url = isFullPath ? path : `${API_ROOT}/${path}`;
+    console.log("The url is: ", url);
 
     fetch(url)
       .then(res => res.text())
