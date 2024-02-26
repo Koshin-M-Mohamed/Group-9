@@ -85,12 +85,12 @@ router.put('/exam/:PATIENT_ID/:exam_Id', async function(req,res,next){
 
 
 // An endpoint to delete some exam
-router.delete('/exam', async function(req,res,next) {
+router.delete('/exam/:PATIENT_ID/:exam_Id', async function(req,res,next) {
   // The request object must contain two key value pairs: the patient ID and the exam ID
 
   // Parse the request for the patient ID/exam ID and pass these to the controller function associated with deleting from database
-  const P_ID = req.get('PATIENT_ID');
-  const e_ID = req.get('exam_Id');
+  const P_ID = req.params.PATIENT_ID;
+  const e_ID = req.params.exam_Id;
 
   // Controller function can return some status code for successful deletion 
   delete_check = await deleteExam(P_ID,e_ID);
