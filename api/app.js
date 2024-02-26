@@ -9,8 +9,6 @@ const mongoose = require('mongoose');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-var mongoose = require('mongoose');
-
 var app = express();
 
 
