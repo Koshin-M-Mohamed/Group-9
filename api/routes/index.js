@@ -3,6 +3,8 @@ var router = express.Router();
 const { getExamByPatientAndExamId, editExam, deleteExam, createAndAddExam } = require('../controllers/controller')
 const {getInitialData} = require('../controllers/controller')
 const {getAllExams} = require('../controllers/controller')
+const {getMatchingExams} = require('../controllers/controller')
+const {getMatchingPatients} = require('../controllers/controller')
 
 
 /* GET home page. */
@@ -33,7 +35,6 @@ router.get('/patient/:PATIENT_ID', async function(req,res){
     // Send the exam object as the response
     res.json(exam);
   } catch (error) {
-    // If an error occurs, pass it to the error handling middleware
     console.log(error);
   }
 
@@ -118,6 +119,40 @@ router.post('/exam', async function(req,res,next){
     res.status(500).send('There was an issue saving the exam, please try again later.');
   }
 
+});
+
+router.get("/searchResults/exams/:queryString", async function(req,res){
+  // Obtain matching exams
+  const queryString = req.params.queryString;
+
+
+  try {
+    // Pass those variables as arguments to the controller function which will return an object containing information pertaining to exam
+    const matchingExams = await getMatchingExams(queryString);
+
+    // Send the exam object as the response
+    res.json(matchingExams);
+  } catch (error) {
+    
+    console.log(error);
+  }
+});
+
+router.get("/searchResults/patient/:queryString", async function(req,res){
+  // Obtain matching patients
+  const queryString = req.params.queryString;
+
+
+  try {
+    // Pass those variables as arguments to the controller function which will return an object containing information pertaining to exam
+    const matchingExams = await getMatchingPatients(queryString);
+
+    // Send the exam object as the response
+    res.json(matchingExams);
+  } catch (error) {
+    
+    console.log(error);
+  }
 });
 
 module.exports = router;
