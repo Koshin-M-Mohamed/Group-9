@@ -13,7 +13,7 @@ router.get('/table', async function(req, res, next) {
   console.log("get request received");
   try {
     const exam = await getInitialData();
-    res.json(exam);
+    res.json({"exams":exam});
   } catch (error) {
     next(error);
   }
