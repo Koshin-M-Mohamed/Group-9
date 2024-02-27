@@ -1,5 +1,38 @@
 const Exam = require('../models/exam');
 
+ 
+
+const getMatchingPatients = async (substring) => {
+    try {
+        // Construct a regular expression using the substring
+        const regex = new RegExp(substring, 'i'); // 'i' flag for case-insensitive matching
+
+        // Query the Exam collection using the regex
+        const exams = await Exam.find({ PATIENT_ID: regex });
+
+        return exams;
+    } catch (error) {
+        console.error('Error finding patients:', error);
+        throw error;
+    }
+};
+
+// Only use for search functionality. Not for other uses. 
+const getMatchingExams = async (substring) => {
+    try {
+        // Construct a regular expression using the substring
+        const regex = new RegExp(substring, 'i'); // 'i' flag for case-insensitive matching
+
+        // Query the Exam collection using the regex
+        const exams = await Exam.find({ exam_Id: regex });
+
+        return exams;
+    } catch (error) {
+        console.error('Error finding exams:', error);
+        throw error;
+    }
+};
+
 
 const getInitialData = async () => {
     try {
@@ -117,3 +150,5 @@ module.exports.getAllExams = getAllExams;
 module.exports.editExam = editExam;
 module.exports.deleteExam = deleteExam;
 module.exports.createAndAddExam = createAndAddExam;
+module.exports.getMatchingExams = getMatchingExams;
+module.exports.getMatchingPatients = getMatchingPatients;
