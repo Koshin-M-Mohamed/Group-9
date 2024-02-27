@@ -13,20 +13,28 @@ function Admin(){
     console.log("API response:", response);
     const exams = response ? JSON.parse(response).exams : [];
     console.log("Parsed exams:", exams);
-    const columns = ['PATIENT_ID', 'examId','LATEST WEIGHT', 'LATEST_BMI', 'AGE', 'SEX', 'Action'];
-        
+    const columns = ['PATIENT_ID', 'exam_Id', 'png_filename','LATEST WEIGHT', 'LATEST_BMI', 'AGE', 'SEX', 'Action'];
+               
     //Edit interface needed to implement editing logic
-    const handleEdit = (examID) => {
+    const handleEdit = (exam_Id) => {
         console.log("Editing exam");
         //history.push(`/edit-exam/${examId}`);
     };
 
-    const handleDelete = async(examId) => {
+    const handleDelete = async(PATIENT_ID, exam_Id) => {
         try{
-            await fetch('https://czi-covid-lypkrzry4q-uc.a.run.app/api/patient/COVID-19-AR-16406504', {
+
+            const url = `/exam/${PATIENT_ID}/${exam_Id}`;
+            await fetch(url, {
                 method: 'DELETE',
             });
-            alert("Exam Deleted");
+
+            if(response.ok){
+                alert("Exam Deleted Succesfully");
+            } else{
+                console.error("Server responded with an error status:", response.status);
+                alert("Failed to Delete. Server responded with an error."); 
+            }
         } catch(error){
             console.error("Error deleting exam:", error);
             alert("Failed to Delete");
@@ -66,10 +74,7 @@ function Admin(){
         switch (col) {
             case 'Action':
                 return makeButtonLink(col, row, rowIndex);
-            case 'patientId':
-            case 'examId':
-                return <Link to={`/${col}/${value}`}>{value}</Link>;
-            case 'imageURL':
+            case 'png_filename':
                 return <img src={value} alt={`Exam ${row.examId}`} style={{ width: "100px", height: "auto" }} />;
             default:
                 return value;
