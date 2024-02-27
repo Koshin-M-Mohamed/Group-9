@@ -4,7 +4,9 @@ import React from "react";
 //import {link} from "react-router-dom";
 import Table from "./table";
 import { useApi } from './hooks/use-api';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+//import UpdateExamForm from './components/UpdateExamForm';
+import EditExam from './components/EditExam';
 
 
 
@@ -16,7 +18,7 @@ function Admin(){
     const columns = ['patientId', 'examId','imageURL', 'keyFindings', 'age', 'sex', 'Action'];
         
     //Edit interface needed to implement editing logic
-    const handleEdit = (examID) => {
+    const EditExam = (examID) => {
         console.log("Editing exam");
         //history.push(`/edit-exam/${examId}`);
     };
@@ -46,19 +48,21 @@ function Admin(){
                 {Label}
                 </button>);
       };
+      const navigate = useNavigate();
+      
     
       const makeButtonLink = (col, row, rowIndex) => {
-
+        console.log(`=========== This is log ${row.examId} =========`);
+        console.log(row);
         return (
             <>
-            <EditButton onClick={(EditExamForm) => handleEdit(row.examId)} Label="Edit" />
-            <Link to="/EditExamForm">EditExamForm</Link>
+            <EditButton style={{backgroundColor: "tomato", color: 'white'}} onClick={() => navigate('EditExam', {state: row})} Label="Edit">
+
+            </EditButton>
             <DeleteButton onClick={() => handleDelete(row.examId)} Label="Delete" /> 
             </>
         );
      };
-
-
 
   const renderCell = (col, value, row, rowIndex) => {
     if (col != 'Action' && value == null) {
@@ -78,19 +82,14 @@ function Admin(){
     }
 };
 
-
     return(
         <div>
             <header className="adminHeader">
             <h1>Admin Page</h1>
-            <header className='EditButton'>
-            <Link to="/UpdateExamPage">UpdateExamForm</Link>
-            </header>
             </header>
             <Link to="/AddExam">Add Exam</Link>
             {exams.length > 0 && <Table data={exams} cols={columns} renderCell={renderCell}/>}
         </div>
-    )
-
+    );
 }
 export default Admin;

@@ -1,4 +1,5 @@
-function UpdateExamForm({ initialData, handlePatientUpdate, handleChange }) {
+import { useState } from "react";
+function EditExam({ initialData, handlePatientUpdate, handleUpdate }) {
     const [formData, setFormData] = useState(initialData); // Step 1
 
     const handleChange = (e) => { // Step 2 & 3

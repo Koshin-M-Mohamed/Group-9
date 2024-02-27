@@ -1,0 +1,38 @@
+/* DetailUpdatePage.css */
+
+.PatientDetails {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .PatientDetails h2 {
+    color: #333;
+  }
+  
+  .PatientDetails label {
+    font-weight: bold;
+  }
+  
+  .PatientDetails input[type="text"],
+  .PatientDetails span {
+    padding: 5px;
+    margin: 5px;
+  }
+  
+  .PatientDetails button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .PatientDetails button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Add more styles as needed */
+  

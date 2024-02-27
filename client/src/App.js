@@ -6,6 +6,8 @@ import Search from './Search.js';
 //import fakeData from './mockData.js';
 import { useApi } from './hooks/use-api';
 import { Link } from 'react-router-dom';
+//import DetailUpdatePage from './components/DetailUpdatePage.js';
+import EditExam from './components/EditExam.js';
 
 function App() {
 
@@ -36,11 +38,11 @@ function App() {
         <header className="App-header">
           <Link to="/Admin">Admin Page</Link>
           </header>
-          <Search />
+          <Search />       
           {exams.length > 0 && <Table data={exams} cols={columns} renderCell={renderCell}/>}       
       </div>
     </>
   );
-}
+  };
 
 export default App;

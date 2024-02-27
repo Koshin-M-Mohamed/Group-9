@@ -1,0 +1,45 @@
+/* EditExam.css */
+
+.edit-exam-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.edit-exam-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.edit-exam-container label {
+  font-weight: bold;
+}
+
+.edit-exam-container input[type="text"],
+.edit-exam-container span {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.edit-exam-container button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.edit-exam-container button:hover {
+  background-color: #0056b3;
+}
