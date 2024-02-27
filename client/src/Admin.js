@@ -23,19 +23,13 @@ function Admin(){
 
     const handleDelete = async(PATIENT_ID, exam_Id) => {
         try{
-
-            const url = `/exam/${PATIENT_ID}/${exam_Id}`;
-            await fetch(url, {
+            const url = `http://localhost:9000/exam/${PATIENT_ID}/${exam_Id}`;
+            const response = await fetch(url, {
                 method: 'DELETE',
             });
+            console.log(response);
 
-            if(response.ok){
-                alert("Exam Deleted Succesfully");
-            } else{
-                console.error("Server responded with an error status:", response.status);
-                alert("Failed to Delete. Server responded with an error."); 
-            }
-        } catch(error){
+        } catch(error){   
             console.error("Error deleting exam:", error);
             alert("Failed to Delete");
         }
@@ -55,12 +49,12 @@ function Admin(){
                 </button>);
       };
     
-      const makeButtonLink = (col, row, rowIndex) => {
+      const makeButtonLink = (row) => {
 
         return (
             <>
-            <EditButton onClick={() => handleEdit(row.examId)} Label="Edit" />
-            <DeleteButton onClick={() => handleDelete(row.examId)} Label="Delete" /> 
+            <EditButton onClick={() => handleEdit(row['exam_Id'], row['PATIENT_ID'])} Label="Edit" />
+            <DeleteButton onClick={() => handleDelete(row['exam_Id'], row['PATIENT_ID'])} Label="Delete" /> 
             </>
         );
      };
@@ -75,7 +69,7 @@ function Admin(){
             case 'Action':
                 return makeButtonLink(col, row, rowIndex);
             case 'png_filename':
-                return <img src={value} alt={`Exam ${row.examId}`} style={{ width: "100px", height: "auto" }} />;
+                return <img src={value} alt={`Exam ${row['exam_Id']}`} style={{ width: "100px", height: "auto" }} />;
             default:
                 return value;
         }
