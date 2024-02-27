@@ -9,22 +9,22 @@ import { Link } from 'react-router-dom';
 
 function App() {
 
-  const { response } = useApi({ path: 'https://czi-covid-lypkrzry4q-uc.a.run.app/api/exams'});
+  const { response } = useApi({ path: 'table'});
   console.log("API response:", response);
   const exams = response ? JSON.parse(response).exams : [];
   console.log("Parsed exams:", exams);
-  const columns = ['patientId', 'examId','imageURL', 'keyFindings', 'age', 'sex', 'zipCode', 'bmi', 'brixiaScores', ];
+  const columns = ['PATIENT_ID', 'exam_Id', 'png_filename','AGE', 'SEX', 'LATEST WEIGHT', 'LATEST_BMI', 'ICU Admit'];
   
   const renderCell = (col, value, row, rowIndex) => {
     if (value == null) {
       return <td key={`${rowIndex}-${col}`}>N/A</td>; 
     }
     switch(col) {
-      case 'patientId':
+      case 'PATIENT_ID':
         return <Link to={`/${col}/${value}`}>{value}</Link>;
-      case 'examId':
+      case 'exam_Id':
         return <Link to={`/${col}/${value}`}>{value}</Link>;
-      case 'imageURL':
+      case 'png_filename':
         return <img src={value} alt={`Exam ${row.examId}`} style={{width: "100px", height: "auto"}} />;
       default:
         return value;
