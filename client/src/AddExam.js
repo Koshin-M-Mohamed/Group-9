@@ -24,18 +24,21 @@ function NewPatientExam(){
           [name]: type === 'number' ? Number(value) : value,
         });
       };
-
+    
+    console.log("This is the form data: ");
+    console.log(formData);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{
-            const response = await axios.post('/exam', formData);
+            const response = await axios.post('http://localhost:9000/exam', formData);
+            console.log("we have recieved the request");
             console.log(response.data);
             navigate('/admin');
         }
         catch(error){
-            console.error('Failed to add exam:', error.response.data);
+            console.log('Failed to add exam:', error);
         }
     }
 
