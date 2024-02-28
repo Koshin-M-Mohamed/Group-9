@@ -3,6 +3,8 @@ var router = express.Router();
 const { getExamByPatientAndExamId, editExam, deleteExam, createAndAddExam } = require('../controllers/controller')
 const {getInitialData} = require('../controllers/controller')
 const {getAllExams} = require('../controllers/controller')
+const {getMatchingExams} = require('../controllers/controller')
+const {getMatchingPatients} = require('../controllers/controller')
 
 
 
@@ -22,7 +24,7 @@ router.get('/table', async function(req, res, next) {
 
 router.get('/exams/:patientId', async function(req,res){  
   // The req is going to be a set of one key value pair which is just the patientID
-  console.log("get request recieved");
+  console.log("get request recieved with the req being", req.params.patientId);
 
   const PatientID = req.params.patientId;
   console.log(PatientID)
@@ -30,11 +32,11 @@ router.get('/exams/:patientId', async function(req,res){
   try {
     // Pass those variables as arguments to the controller function which will return an object containing information pertaining to exam
     const exam = await getAllExams(PatientID);
+    console.log("We have got back our response, which is: ", exam);
 
     // Send the exam object as the response
     res.json(exam);
   } catch (error) {
-    // If an error occurs, pass it to the error handling middleware
     console.log(error);
   }
 
@@ -108,6 +110,7 @@ router.delete('/exam/:PATIENT_ID/:exam_Id', async function(req,res,next) {
 
 // An endpoint to add a new exam to the database
 router.post('/exam', async function(req,res,next){
+  console.log("This endpoint has recieved a request");
   // The request object must contain an exam object
   const new_Exam = req.body;
   // Call a controller function which takes the exam object as an argument and adds the exam object to our database
@@ -119,6 +122,40 @@ router.post('/exam', async function(req,res,next){
     res.status(500).send('There was an issue saving the exam, please try again later.');
   }
 
+});
+
+router.get("/searchResults/exams/:queryString", async function(req,res){
+  // Obtain matching exams
+  const queryString = req.params.queryString;
+
+
+  try {
+    // Pass those variables as arguments to the controller function which will return an object containing information pertaining to exam
+    const matchingExams = await getMatchingExams(queryString);
+
+    // Send the exam object as the response
+    res.json(matchingExams);
+  } catch (error) {
+    
+    console.log(error);
+  }
+});
+
+router.get("/searchResults/patient/:queryString", async function(req,res){
+  // Obtain matching patients
+  const queryString = req.params.queryString;
+
+
+  try {
+    // Pass those variables as arguments to the controller function which will return an object containing information pertaining to exam
+    const matchingExams = await getMatchingPatients(queryString);
+
+    // Send the exam object as the response
+    res.json(matchingExams);
+  } catch (error) {
+    
+    console.log(error);
+  }
 });
 
 module.exports = router;

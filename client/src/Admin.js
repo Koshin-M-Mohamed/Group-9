@@ -13,21 +13,23 @@ function Admin(){
     console.log("API response:", response);
     const exams = response ? JSON.parse(response).exams : [];
     console.log("Parsed exams:", exams);
-    const columns = ['PATIENT_ID', 'examId','LATEST WEIGHT', 'LATEST_BMI', 'AGE', 'SEX', 'Action'];
-        
+    const columns = ['PATIENT_ID', 'exam_Id', 'png_filename','LATEST WEIGHT', 'LATEST_BMI', 'AGE', 'SEX', 'Action'];
+               
     //Edit interface needed to implement editing logic
-    const handleEdit = (examID) => {
+    const handleEdit = (exam_Id) => {
         console.log("Editing exam");
         //history.push(`/edit-exam/${examId}`);
     };
 
-    const handleDelete = async(examId) => {
+    const handleDelete = async(PATIENT_ID, exam_Id) => {
         try{
-            await fetch('https://czi-covid-lypkrzry4q-uc.a.run.app/api/patient/COVID-19-AR-16406504', {
+            const url = `http://localhost:9000/exam/${PATIENT_ID}/${exam_Id}`;
+            const response = await fetch(url, {
                 method: 'DELETE',
             });
-            alert("Exam Deleted");
-        } catch(error){
+            console.log(response);
+
+        } catch(error){   
             console.error("Error deleting exam:", error);
             alert("Failed to Delete");
         }
@@ -47,12 +49,12 @@ function Admin(){
                 </button>);
       };
     
-      const makeButtonLink = (col, row, rowIndex) => {
+      const makeButtonLink = (row) => {
 
         return (
             <>
-            <EditButton onClick={() => handleEdit(row.examId)} Label="Edit" />
-            <DeleteButton onClick={() => handleDelete(row.examId)} Label="Delete" /> 
+            <EditButton onClick={() => handleEdit(row['exam_Id'], row['PATIENT_ID'])} Label="Edit" />
+            <DeleteButton onClick={() => handleDelete(row['exam_Id'], row['PATIENT_ID'])} Label="Delete" /> 
             </>
         );
      };
@@ -66,11 +68,8 @@ function Admin(){
         switch (col) {
             case 'Action':
                 return makeButtonLink(col, row, rowIndex);
-            case 'patientId':
-            case 'examId':
-                return <Link to={`/${col}/${value}`}>{value}</Link>;
-            case 'imageURL':
-                return <img src={value} alt={`Exam ${row.examId}`} style={{ width: "100px", height: "auto" }} />;
+            case 'png_filename':
+                return <img src={value} alt={`Exam ${row['exam_Id']}`} style={{ width: "100px", height: "auto" }} />;
             default:
                 return value;
         }

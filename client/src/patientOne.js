@@ -1,55 +1,57 @@
-import './App.css';
-import './table.css'
-import './Search.css'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Table from './table';
-import Search from './Search.js';
-//import fakeData from './mockData.js';
-import { useApi } from './hooks/use-api';
+import Search from './Search';
 import { Link, useParams } from 'react-router-dom';
 
-
 function PatientOne() {
-    const { patientId } = useParams() 
-    console.log(patientId)
+  const { patientId } = useParams();
+  console.log("The patient ID we are going to use is: " + patientId);
+  const [exams, setExams] = useState([]);
 
-    
-  const { response } = useApi({ path: `http://localhost:9000/exams/${patientId}`}); // change this link because now it's local 
-  console.log("API response:", response);
-  const exams = response ? JSON.parse(response).exams : [];
-  console.log("Parsed exams:", exams);
-  const columns = ['patientId', 'examId','imageURL', 'keyFindings', 'age', 'sex', 'zipCode', 'bmi', 'brixiaScores', ];
-  
+  useEffect(() => {
+    const fetchExams = async () => {
+      try {
+        const response = await axios.get(`http://localhost:9000/exams/${patientId}`);
+        console.log("Received response:", response.data);
+        setExams(response.data); // Set the exams state with the response data
+      } catch (error) {
+        console.log('Failed to fetch exams:', error);
+      }
+    };
+    fetchExams(); // Call the async function to execute when component mounts
+  }, [patientId]); // Include patientId in dependency array to re-fetch exams when patientId changes
+
+  const columns = [
+    'PATIENT_ID',
+    'exam_Id',
+    'AGE',
+    'SEX',
+    'ZIP',
+    'LATEST_BMI',
+    'ICU Admit',
+    '# ICU admits',
+    'MORTALITY',
+    'LATEST WEIGHT',
+    'png_filename'
+  ];
+
   const renderCell = (col, value, row, rowIndex) => {
     if (value == null) {
-      return <td key={`${rowIndex}-${col}`}>N/A</td>; 
+      return <td key={`${rowIndex}-${col}`}>N/A</td>;
     }
-        switch(col) {
-            case 'patientId':
-              return <Link to={`/${col}/${value}`}>{value}</Link>;
-            case 'examId':
-              return <Link to={`/${col}/${value}`}>{value}</Link>;
-            case 'imageURL':
-              return <img src={value} alt={`Exam ${row.examId}`} style={{width: "100px", height: "auto"}} />;
-            default:
-              return value;
-          }      
- 
+    return <td key={`${rowIndex}-${col}`}>{value}</td>;
   };
 
-  
-
-  return(
-    <>
-      <div className="App">
-        <header className="App-header">
-          <Link to="/Admin">Admin Page</Link>
-          </header>
-          <Search />
-          <h1>Patient: {patientId} </h1>
-          {exams.length > 0 && <Table data={exams} cols={columns} renderCell={renderCell}/>}        
-        
-      </div>
-    </>
+  return (
+    <div className="App">
+      <header className="App-header">
+        <Link to="/Admin">Admin Page</Link>
+      </header>
+      <Search />
+      <h1>Patient: {patientId}</h1>
+      {exams.length > 0 && <Table data={exams} cols={columns} renderCell={renderCell} />}
+    </div>
   );
 }
 
