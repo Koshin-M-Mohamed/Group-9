@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 function App() {
 
-  const { response } = useApi({ path: 'https://czi-covid-lypkrzry4q-uc.a.run.app/api/exams'});
+  const { response } = useApi({ path: 'http://localhost:9000/table'});
   console.log("API response:", response);
   const exams = response ? JSON.parse(response).exams : [];
   console.log("Parsed exams:", exams);
