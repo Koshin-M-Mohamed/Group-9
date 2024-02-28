@@ -7,7 +7,7 @@ function ExamBox({examInfo}) {
         'Exam ID': examInfo.exam_Id,
         'ICU Admit?': examInfo['ICU Admit'],
         '# ICU Admits': examInfo['# ICU admits'],
-        'Mortality': examInfo.Mortality,
+        'Mortality': examInfo.MORTALITY,
     };
 
     let items = [];

@@ -6,9 +6,8 @@ import PatientInfo from "../components/Patientinfo";
 function ExamViewer({Patient_ID, exam_Id}) {
 
     const location = useLocation();
-    const {from} = location.state;
 
-    const uri_string = ('http://localhost:9000/exam/' + from.Patient_ID + '/' + from.exam_Id);
+    const uri_string = ('http://localhost:9000/exam/' + location.state.Patient_ID + '/' + location.state.exam_Id);
 
     const [exam, setExam] = useState();
 

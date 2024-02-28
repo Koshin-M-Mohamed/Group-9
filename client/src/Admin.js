@@ -65,14 +65,18 @@ function Admin(){
     if (col != 'Action' && value == null) {
         return <td key={`${rowIndex}-${col}`}>N/A</td>;
     } else {
+
+        var Patient_ID ='';
+        var exam_Id = '';
+
         switch (col) {
             case 'Action':
                 return makeButtonLink(col, row, rowIndex);
             case 'patientId':
-                const Patient_ID = value;
+                Patient_ID = value;
             case 'examId':
-                const exam_Id = value;
-                return <Link to={`/exams/${col}/${value}`} state={{'Patient_ID' : Patient_ID, 'exam_Id':exam_Id}}>{value}</Link>;
+                exam_Id = value;
+                return <Link to={`exams/${Patient_ID}}/${exam_Id}`} state={{'Patient_ID' : Patient_ID, 'exam_Id':exam_Id}}>{value}</Link>;
             case 'png_filename':
                 return <img src={value} alt={`Exam ${row.examId}`} style={{ width: "100px", height: "auto" }} />;
             default:
