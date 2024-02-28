@@ -1,4 +1,5 @@
 const Exam = require('../models/exam');
+const fs = require('fs');
 
 
 const getInitialData = async () => {
@@ -116,3 +117,4 @@ module.exports.getAllExams = getAllExams;
 module.exports.editExam = editExam;
 module.exports.deleteExam = deleteExam;
 module.exports.createAndAddExam = createAndAddExam;
+

@@ -5,7 +5,6 @@ const {getInitialData} = require('../controllers/controller')
 const {getAllExams} = require('../controllers/controller')
 
 
-/* GET home page. */
 
 router.use(express.json());
 
@@ -20,11 +19,13 @@ router.get('/table', async function(req, res, next) {
 });
 
 
-router.get('/patient/:PATIENT_ID', async function(req,res){  
+
+router.get('/exams/:patientId', async function(req,res){  
   // The req is going to be a set of one key value pair which is just the patientID
   console.log("get request recieved");
 
-  const PatientID = req.params.PATIENT_ID;
+  const PatientID = req.params.patientId;
+  console.log(PatientID)
 
   try {
     // Pass those variables as arguments to the controller function which will return an object containing information pertaining to exam
