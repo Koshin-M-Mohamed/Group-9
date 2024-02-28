@@ -21,3 +21,4 @@ function PatientInfo(patientInfo) {
 }
 
 export default PatientInfo;
+

@@ -3,21 +3,24 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import Admin from './Admin';
+import PatientOne from './patientOne'; //import patient from component file 
 import AddExam from './AddExam';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
     <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App/>}/>
-      <Route path="/Admin" element ={<Admin/>}/>
-      <Route path="/AddExam" element ={<AddExam/>}/>
-    </Routes>
-    </BrowserRouter>
-  </React.StrictMode>
-);
+      <React.StrictMode>
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="/Admin" element={<Admin />} />
+          <Route path="/patientId/:patientId" element={<PatientOne />} />
 
-reportWebVitals();
+          <Route path="/AddExam" element={<AddExam />} />
+        </Routes>
+      </React.StrictMode>
+    </BrowserRouter>
+  );
+  
+  reportWebVitals();
