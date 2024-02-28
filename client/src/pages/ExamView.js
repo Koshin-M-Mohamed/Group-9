@@ -1,23 +1,28 @@
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import ExamInfo from "../components/ExamInfo";
 import PatientInfo from "../components/Patientinfo";
-import { useApi } from "../hooks/use-api";
-
-
-
-function _fetchExam(Patient_ID, exam_Id) {
-    const uri_string = ('exam/' + Patient_ID + '/' + exam_Id);
-    const response = useApi({ path : uri_string});
-    console.log(response);
-
-    return response;
-};
 
 function ExamViewer({Patient_ID, exam_Id}) {
 
-    const exam = _fetchExam(Patient_ID, exam_Id);
-    console.log('exam', exam);
+    const location = useLocation();
+    const {from} = location.state;
 
-    const examInfo = JSON.parse(exam['response']);
+    const uri_string = ('http://localhost:9000/exam/' + from.Patient_ID + '/' + from.exam_Id);
+
+    const [exam, setExam] = useState();
+
+
+    useEffect(() => {
+        const fetch_data = async () => {
+            const response = await fetch(uri_string);
+            const data = await response.json();
+            setExam(data);
+        }
+        fetch_data();
+    }, []);
+
+    const examInfo = exam;
     console.log(examInfo);
     
     if (examInfo) {

@@ -17,7 +17,7 @@ root.render(
       <Route path="/" element={<App/>}/>
       <Route path="/Admin" element ={<Admin/>}/>
       <Route path="/AddExam" element ={<AddExam/>}/>
-      <Route path="/ExamView" element ={<ExamViewer Patient_ID={'COVID-19-AR-16439216'} exam_Id={'Exam-1'}/>}/>
+      <Route path="/exams/:exam_Id/:Patient_Id" element ={<ExamViewer Patient_ID={'COVID-19-AR-16439216'} exam_Id={'Exam-1'}/>}/>
       <Route path="/search-results" element={<SearchResultsPage />} /> {/* New route for search results */}
     </Routes>
     </BrowserRouter>

@@ -67,8 +67,10 @@ function Admin(){
             case 'Action':
                 return makeButtonLink(col, row, rowIndex);
             case 'patientId':
+                const Patient_ID = value;
             case 'examId':
-                return <Link to={`/${col}/${value}`}>{value}</Link>;
+                const exam_Id = value;
+                return <Link to={`/exams/${col}/${value}`} state={{'Patient_ID' : Patient_ID, 'exam_Id':exam_Id}}>{value}</Link>;
             case 'imageURL':
                 return <img src={value} alt={`Exam ${row.examId}`} style={{ width: "100px", height: "auto" }} />;
             default:
