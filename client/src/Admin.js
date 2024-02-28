@@ -78,7 +78,8 @@ function Admin(){
                 exam_Id = value;
                 return <Link to={`exams/${Patient_ID}}/${exam_Id}`} state={{'Patient_ID' : Patient_ID, 'exam_Id':exam_Id}}>{value}</Link>;
             case 'png_filename':
-                return <img src={value} alt={`Exam ${row.examId}`} style={{ width: "100px", height: "auto" }} />;
+                const filename = 'https://ohif-hack-diversity-covid.s3.amazonaws.com/covid-png/' + value;
+                return <img src={filename} alt={`Exam ${row.examId}`} style={{ width: "100px", height: "auto" }} />;
             default:
                 return value;
         }
