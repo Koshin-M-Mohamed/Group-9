@@ -81,6 +81,7 @@ const getExamByPatientAndExamId = async (P_ID, e_Id) => {
         console.log(e_Id);
         // Retrieve exam data from MongoDB using Mongoose
         const exam = await Exam.findOne({ PATIENT_ID: P_ID, exam_Id: e_Id });
+        console.log(exam)
 
         // If exam data is found, return it
         if (exam) {
