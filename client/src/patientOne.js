@@ -11,7 +11,7 @@ import { Link, useParams } from 'react-router-dom';
 function PatientOne() {
     const { patientId } = useParams() 
     console.log(patientId)
-  const { response } = useApi({ path: `https://czi-covid-lypkrzry4q-uc.a.run.app/api/exams?patientId=${patientId}`});
+  const { response } = useApi({ path: `http://localhost:9000/exams/${patientId}`}); // change this link because now it's local 
   console.log("API response:", response);
   const exams = response ? JSON.parse(response).exams : [];
   console.log("Parsed exams:", exams);
@@ -33,6 +33,8 @@ function PatientOne() {
           }      
  
   };
+
+  
 
   return(
     <>

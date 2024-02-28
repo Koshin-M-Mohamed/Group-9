@@ -15,7 +15,7 @@ root.render(
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/Admin" element={<Admin />} />
-          <Route path="/patientId/:patientId" element={<PatientOne />} />
+          <Route path="/:patientId" element={<PatientOne />} />
 
           <Route path="/AddExam" element={<AddExam />} />
         </Routes>

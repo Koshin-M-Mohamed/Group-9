@@ -21,7 +21,7 @@ function App() {
     }
     switch(col) {
       case 'patientId':
-        return <Link to={`/${col}/${value}`}>{value}</Link>;
+        return <Link to={`/${value}`}>{value}</Link>;
       case 'examId':
         return <Link to={`/${col}/${value}`}>{value}</Link>;
       case 'imageURL':
