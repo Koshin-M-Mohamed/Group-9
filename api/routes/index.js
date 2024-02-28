@@ -127,6 +127,7 @@ router.delete('/exam/:PATIENT_ID/:exam_Id', async function(req,res,next) {
 
 // An endpoint to add a new exam to the database
 router.post('/exam', async function(req,res,next){
+  console.log("This endpoint has recieved a request");
   // The request object must contain an exam object
   const new_Exam = req.body;
   // Call a controller function which takes the exam object as an argument and adds the exam object to our database
