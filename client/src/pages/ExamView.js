@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ExamInfo from "../components/ExamInfo";
 import PatientInfo from "../components/Patientinfo";
 
@@ -28,10 +28,15 @@ function ExamViewer({Patient_ID, exam_Id}) {
 
         return (
         < >
-        <div className="App-examwindow">
-            <ExamInfo className="App-examwindow" examInfo= {examInfo}/>
-            <PatientInfo className="App-patientwindow" patientInfo= {examInfo}/>
-        </div>
+            <div className="App">
+                <header className="App-header">
+                <Link to="/Admin">Admin Page</Link>
+                </header>      
+            </div>
+            <div className="App-examwindow">
+                <ExamInfo className="App-examwindow" examInfo= {examInfo}/>
+                <PatientInfo className="App-patientwindow" patientInfo= {examInfo}/>
+            </div>
         </>);
     } else {
         
