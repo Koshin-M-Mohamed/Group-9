@@ -3,6 +3,7 @@ import axios from 'axios';
 import Table from './table';
 import Search from './Search';
 import { Link, useParams } from 'react-router-dom';
+import './patientOne.css';
 
 function PatientOne() {
   const { patientId } = useParams();
