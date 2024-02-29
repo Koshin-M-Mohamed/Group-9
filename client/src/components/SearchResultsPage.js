@@ -26,7 +26,7 @@ function SearchResultsPage() {
         </thead>
         <tbody>
           {searchResults.map((exam) => (
-            <tr key={`${exam.PATIENT_ID}-${exam.exam_Id}`}>
+            <tr key={exam.exam_Id}>
               <td>{exam.PATIENT_ID}</td>
               <td>{exam.exam_Id}</td>
             </tr>

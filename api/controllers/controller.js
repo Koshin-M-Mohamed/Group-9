@@ -1,8 +1,5 @@
-const Exam = require('../models/exam');
-const fs = require('fs');
-
  
-
+const Exam = require('../models/exam');
 const getMatchingPatients = async (substring) => {
     try {
         // Construct a regular expression using the substring
@@ -17,6 +14,10 @@ const getMatchingPatients = async (substring) => {
         throw error;
     }
 };
+
+
+
+ 
 
 // Only use for search functionality. Not for other uses. 
 const getMatchingExams = async (substring) => {
@@ -82,6 +83,7 @@ const getExamByPatientAndExamId = async (P_ID, e_Id) => {
         console.log(e_Id);
         // Retrieve exam data from MongoDB using Mongoose
         const exam = await Exam.findOne({ PATIENT_ID: P_ID, exam_Id: e_Id });
+        console.log(exam)
 
         // If exam data is found, return it
         if (exam) {

@@ -63,6 +63,25 @@ router.get('/exam/:PATIENT_ID/:exam_Id', async function(req, res, next) {
   }
 });
 
+router.get('/patient/:PATIENT_ID', async function(req,res){  
+  // The req is going to be a set of one key value pair which is just the patientID
+  console.log("get request recieved");
+
+  const PatientID = req.params.PATIENT_ID;
+
+  try {
+    // Pass those variables as arguments to the controller function which will return an object containing information pertaining to exam
+    const exam = await getAllExams(PatientID);
+
+    // Send the exam object as the response
+    res.json(exam);
+  } catch (error) {
+    // If an error occurs, pass it to the error handling middleware
+    console.log(error);
+  }
+
+});
+
 // An endpoint to update information regarding some exam
 // Julian 
 router.put('/exam/:PATIENT_ID/:exam_Id', async function(req,res,next){

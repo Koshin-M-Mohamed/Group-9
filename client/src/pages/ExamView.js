@@ -1,41 +1,44 @@
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import ExamInfo from "../components/ExamInfo";
 import PatientInfo from "../components/Patientinfo";
 
-
-
-async function _fetchExam(Patient_ID, exam_Id) {
-    uri_string = 'localhost:9000' + Patient_ID + exam_Id
-    const request = new Request(uri_string);
-    const response = await fetch(request).json();
-
-    return response;
-};
-
 function ExamViewer({Patient_ID, exam_Id}) {
 
-    exam = JSON.parse(_fetchExam(Patient_ID, exam_Id));
-    patientInfo = {
-        'Patient_ID' : exam.Patient_ID,
-        'Age': exam.Age,
-        'Sex': exam.Sex,
-        'Zip': exam.Zip,
-        'Latest_BMI': exam.Latest_BMI,
-        'Latest_weight': exam.Latest_weight,
-    };
-    examInfo = {
-        'Exam Id': exam.exam_Id,
-        'ICU Admit': exam.ICU_Admit,
-        'ICU Admits': exam.ICU_admits,
-        'Mortality': exam.Mortality
-    };
+    const location = useLocation();
 
-    return (
-    < >
-    <div className="App-examwindow">
-        <ExamInfo className="App-examwindow"/>
-        <PatientInfo className="App-patientwindow"/>
-    </div>
-    </>);
-}
+    const uri_string = ('http://localhost:9000/exam/' + location.state.Patient_ID + '/' + location.state.exam_Id);
+
+    const [exam, setExam] = useState();
+
+
+    useEffect(() => {
+        const fetch_data = async () => {
+            const response = await fetch(uri_string);
+            const data = await response.json();
+            setExam(data);
+        }
+        fetch_data();
+    }, []);
+
+    const examInfo = exam;
+    console.log(examInfo);
+    
+    if (examInfo) {
+
+        return (
+        < >
+        <div className="App-examwindow">
+            <ExamInfo className="App-examwindow" examInfo= {examInfo}/>
+            <PatientInfo className="App-patientwindow" patientInfo= {examInfo}/>
+        </div>
+        </>);
+    } else {
+        
+        return (
+        <h1>No Exam Specified</h1>
+        );
+    }
+};
 
 export default ExamViewer;
