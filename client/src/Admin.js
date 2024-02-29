@@ -82,7 +82,9 @@ function Admin() {
             <header className="adminHeader">
                 <h1>Admin Page</h1>
             </header>
-            <Link to="/AddExam">Add Exam</Link>
+            <div class= "AddExamContainer">
+            <Link to="/AddExam" className="LinkToAdd">Add Exam</Link>
+            </div>
             {exams.length > 0 && <Table data={exams} cols={columns} renderCell={renderCell} />}
         </div>
     );
