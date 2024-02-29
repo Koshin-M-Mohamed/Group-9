@@ -14,6 +14,9 @@ function App() {
   const exams = response ? JSON.parse(response).exams : [];
   console.log("Parsed exams:", exams);
   const columns = ['PATIENT_ID', 'exam_Id', 'png_filename','AGE', 'SEX', 'LATEST WEIGHT', 'LATEST_BMI', 'ICU Admit'];
+
+  var Patient_ID = '';
+  var exam_Id = '';
   
   const renderCell = (col, value, row, rowIndex) => {
     if (value == null) {
@@ -21,11 +24,14 @@ function App() {
     }
     switch(col) {
       case 'PATIENT_ID':
+        Patient_ID = value;
         return <Link to={`/${col}/${value}`}>{value}</Link>;
       case 'exam_Id':
-        return <Link to={`/${col}/${value}`}>{value}</Link>;
+        exam_Id = value;
+        return <Link to={`exams/${Patient_ID}/${exam_Id}`} state={{'Patient_ID' : Patient_ID, 'exam_Id':exam_Id}}>{value}</Link>;
       case 'png_filename':
-        return <img src={value} alt={`Exam ${row.examId}`} style={{width: "100px", height: "auto"}} />;
+        const filename = 'https://ohif-hack-diversity-covid.s3.amazonaws.com/covid-png/' + value;
+        return <img src={filename} alt={`Exam ${row.examId}`} style={{width: "100px", height: "auto"}} />;
       default:
         return value;
     }

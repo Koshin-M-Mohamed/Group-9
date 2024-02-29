@@ -67,12 +67,21 @@ function Admin(){
     if (col != 'Action' && value == null) {
         return <td key={`${rowIndex}-${col}`}>N/A</td>;
     } else {
+
+        var Patient_ID ='';
+        var exam_Id = '';
+
         switch (col) {
             case 'Action':
-                
-                return makeButtonLink(col, row);
+                return makeButtonLink(col, row, rowIndex);
+            case 'patientId':
+                Patient_ID = value;
+            case 'examId':
+                exam_Id = value;
+                return <Link to={`exams/${Patient_ID}}/${exam_Id}`} state={{'Patient_ID' : Patient_ID, 'exam_Id':exam_Id}}>{value}</Link>;
             case 'png_filename':
-                return <img src={value} alt={`Exam ${row.exam_Id}`} style={{ width: "100px", height: "auto" }} />;
+                const filename = 'https://ohif-hack-diversity-covid.s3.amazonaws.com/covid-png/' + value;
+                return <img src={filename} alt={`Exam ${row.examId}`} style={{ width: "100px", height: "auto" }} />;
             default:
                 return value;
         }
