@@ -1,7 +1,5 @@
-const Exam = require('../models/exam');
-
  
-
+const Exam = require('../models/exam');
 const getMatchingPatients = async (substring) => {
     try {
         // Construct a regular expression using the substring
@@ -16,6 +14,10 @@ const getMatchingPatients = async (substring) => {
         throw error;
     }
 };
+
+
+
+ 
 
 // Only use for search functionality. Not for other uses. 
 const getMatchingExams = async (substring) => {

@@ -17,7 +17,6 @@ function App() {
 
   var Patient_ID = '';
   var exam_Id = '';
-  
   const renderCell = (col, value, row, rowIndex) => {
     if (value == null) {
       return <td key={`${rowIndex}-${col}`}>N/A</td>; 
@@ -25,7 +24,7 @@ function App() {
     switch(col) {
       case 'PATIENT_ID':
         Patient_ID = value;
-        return <Link to={`/${col}/${value}`}>{value}</Link>;
+        return <Link to={`/patientResults/${value}`}>{value}</Link>;
       case 'exam_Id':
         exam_Id = value;
         return <Link to={`exams/${Patient_ID}/${exam_Id}`} state={{'Patient_ID' : Patient_ID, 'exam_Id':exam_Id}}>{value}</Link>;

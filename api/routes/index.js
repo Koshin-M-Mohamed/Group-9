@@ -7,7 +7,6 @@ const {getMatchingExams} = require('../controllers/controller')
 const {getMatchingPatients} = require('../controllers/controller')
 
 
-/* GET home page. */
 
 router.use(express.json());
 
@@ -22,15 +21,18 @@ router.get('/table', async function(req, res, next) {
 });
 
 
-router.get('/patient/:PATIENT_ID', async function(req,res){  
-  // The req is going to be a set of one key value pair which is just the patientID
-  console.log("get request recieved");
 
-  const PatientID = req.params.PATIENT_ID;
+router.get('/exams/:patientId', async function(req,res){  
+  // The req is going to be a set of one key value pair which is just the patientID
+  console.log("get request recieved with the req being", req.params.patientId);
+
+  const PatientID = req.params.patientId;
+  console.log(PatientID)
 
   try {
     // Pass those variables as arguments to the controller function which will return an object containing information pertaining to exam
     const exam = await getAllExams(PatientID);
+    console.log("We have got back our response, which is: ", exam);
 
     // Send the exam object as the response
     res.json(exam);
