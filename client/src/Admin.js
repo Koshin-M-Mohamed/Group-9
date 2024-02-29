@@ -5,6 +5,8 @@ import React from "react";
 import Table from "./table";
 import { useApi } from './hooks/use-api';
 import { Link } from "react-router-dom";
+import axios from 'axios';
+
 
 
 
@@ -21,13 +23,12 @@ function Admin(){
         //history.push(`/edit-exam/${examId}`);
     };
 
-    const handleDelete = async(PATIENT_ID, exam_Id) => {
+    const handleDelete = async(exam_Id, PATIENT_ID) => {
         try{
             const url = `http://localhost:9000/exam/${PATIENT_ID}/${exam_Id}`;
-            const response = await fetch(url, {
-                method: 'DELETE',
-            });
+            const response = await axios.delete(url);
             console.log(response);
+
 
         } catch(error){   
             console.error("Error deleting exam:", error);
@@ -37,6 +38,7 @@ function Admin(){
 
     const EditButton = ({onClick, Label}) => {
         return (
+              
               <button onClick={onClick} >
               {Label}
               </button>);
@@ -49,12 +51,12 @@ function Admin(){
                 </button>);
       };
     
-      const makeButtonLink = (row) => {
-
+      const makeButtonLink = (col, row) => {
+        
         return (
             <>
-            <EditButton onClick={() => handleEdit(row['exam_Id'], row['PATIENT_ID'])} Label="Edit" />
-            <DeleteButton onClick={() => handleDelete(row['exam_Id'], row['PATIENT_ID'])} Label="Delete" /> 
+            <EditButton onClick={() => handleEdit(row.exam_Id, row.PATIENT_ID)} Label="Edit" />
+            <DeleteButton onClick={() => handleDelete(row.exam_Id, row.PATIENT_ID)} Label="Delete" /> 
             </>
         );
      };
@@ -67,9 +69,10 @@ function Admin(){
     } else {
         switch (col) {
             case 'Action':
-                return makeButtonLink(col, row, rowIndex);
+                
+                return makeButtonLink(col, row);
             case 'png_filename':
-                return <img src={value} alt={`Exam ${row['exam_Id']}`} style={{ width: "100px", height: "auto" }} />;
+                return <img src={value} alt={`Exam ${row.exam_Id}`} style={{ width: "100px", height: "auto" }} />;
             default:
                 return value;
         }
