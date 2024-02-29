@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './AddExam.css';
 
 function NewPatientExam(){ 
     const [formData, setFormData] = useState({
@@ -46,6 +47,8 @@ function NewPatientExam(){
 
     return (
       <form onSubmit={handleSubmit}>
+            <input name="PATIENT_ID" value={formData.PATIENT_ID} onChange={handleChange} placeholder="Patient ID" />
+            <input name="exam_Id" value={formData.exam_Id} onChange={handleChange} placeholder="Exam ID" />
             <input name="AGE" type="number" value={formData.AGE} onChange={handleChange} placeholder="Age" />
             <select name="SEX" value={formData.SEX} onChange={handleChange}>
                 <option value="">Select Sex</option>
@@ -54,14 +57,14 @@ function NewPatientExam(){
             </select>
             <input name="ZIP" type="number" value={formData.ZIP} onChange={handleChange} placeholder="ZIP Code" />
             <input name="LATEST_BMI" type="number" step="0.01" value={formData.LATEST_BMI} onChange={handleChange} placeholder="Latest BMI" />
-            <input name="exam_Id" value={formData.exam_Id} onChange={handleChange} placeholder="Exam ID" />
             <input name="ICU Admit" value={formData["ICU Admit"]} onChange={handleChange} placeholder="ICU Admit" />
             <input name="# ICU admits" type="number" value={formData["# ICU admits"]} onChange={handleChange} placeholder="# ICU Admits" />
             <input name="MORTALITY" value={formData.MORTALITY} onChange={handleChange} placeholder="Mortality" />
             <input name="LATEST WEIGHT" type="number" value={formData["LATEST WEIGHT"]} onChange={handleChange} placeholder="Latest Weight" />
-            <input name="PATIENT_ID" value={formData.PATIENT_ID} onChange={handleChange} placeholder="Patient ID" />
             <input name="png_filename" value={formData.png_filename} onChange={handleChange} placeholder="Image Filename" />
+            <div className="submitContainer">
             <button type="submit">Submit</button>
+            </div>
         </form> 
     );
 
