@@ -19,7 +19,7 @@ function Admin() {
         try {
             const url = `http://localhost:9000/exam/${PATIENT_ID}/${exam_Id}`;
             const response = await axios.delete(url);
-            console.log(response);
+            await console.log(response);
         } catch (error) {
             console.error("Error deleting exam:", error);
             alert("Failed to Delete");
